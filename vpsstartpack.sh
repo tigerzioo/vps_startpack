@@ -44,22 +44,22 @@ read -p "请输入你的选择: " sub_choice
 
 
 case $sub_choice in
-    1) set_timedate Asia/Shanghai ;;
-    2) set_timedate Asia/Hong_Kong ;;
-    3) set_timedate Asia/Tokyo ;;
-    4) set_timedate Asia/Seoul ;;
-    5) set_timedate Europe/London ;;
-    6) set_timedate Europe/Paris ;;
-    7) set_timedate Europe/Berlin ;;
-    8) set_timedate Europe/Moscow ;;
-    9) set_timedate Europe/Amsterdam ;;
-    10) set_timedate Europe/Madrid ;;
-    11) set_timedate America/Los_Angeles ;;
-    12) set_timedate America/New_York ;;
-    13) set_timedate America/Chicago ;;
-    14) set_timedate America/Denver ;;
-    15) set_timedate America/Vancouver ;;
-    16) set_timedate America/Mexico_City ;;
+    1) timedatectl set-timezone Asia/Shanghai ;;
+    2) timedatectl set-timezone Asia/Hong_Kong ;;
+    3) timedatectl set-timezone Asia/Tokyo ;;
+    4) timedatectl set-timezone Asia/Seoul ;;
+    5) timedatectl set-timezone Europe/London ;;
+    6) timedatectl set-timezone Europe/Paris ;;
+    7) timedatectl set-timezone Europe/Berlin ;;
+    8) timedatectl set-timezone Europe/Moscow ;;
+    9) timedatectl set-timezone Europe/Amsterdam ;;
+    10) timedatectl set-timezone Europe/Madrid ;;
+    11) timedatectl set-timezone America/Los_Angeles ;;
+    12) timedatectl set-timezone America/New_York ;;
+    13) timedatectl set-timezone America/Chicago ;;
+    14) timedatectl set-timezone America/Denver ;;
+    15) timedatectl set-timezone America/Vancouver ;;
+    16) timedatectl set-timezone America/Mexico_City ;;
 esac
 
 current_hostname=$(hostname)
