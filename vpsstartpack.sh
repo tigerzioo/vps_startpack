@@ -61,7 +61,8 @@ case $sub_choice in
     15) timedatectl set-timezone America/Vancouver ;;
     16) timedatectl set-timezone America/Mexico_City ;;
 esac
-echo "更改时区为："timedatectl | grep "Time zone" | awk '{print $3}'
+timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
+echo "更改后系统时区：$timezone"
 
 current_hostname=$(hostname)
 echo -e "当前主机名: $current_hostname"
