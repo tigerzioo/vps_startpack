@@ -17,7 +17,7 @@ echo "********更改时区......"
 # timedatectl set-timezone America/Chicago
 
 # 获取当前系统时区
-timezone=$(current_timezone)
+timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
 
 # 获取当前系统时间
 current_time=$(date +"%Y-%m-%d %H:%M:%S")
@@ -61,6 +61,7 @@ case $sub_choice in
     15) timedatectl set-timezone America/Vancouver ;;
     16) timedatectl set-timezone America/Mexico_City ;;
 esac
+echo "更改时区为："timedatectl | grep "Time zone" | awk '{print $3}'
 
 current_hostname=$(hostname)
 echo -e "当前主机名: $current_hostname"
