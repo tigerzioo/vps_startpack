@@ -5,10 +5,13 @@ apt-get update -y && apt-get upgrade -y
 echo "********安装sudo，curl......"
 apt install sudo curl -y
 
-echo "********安装docker和docker-compose......"
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh ./get-docker.sh
-apt-get install docker-compose -y
+read -p "是否安装docker和docker-compose？(y/n) " dock
+if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
+  echo "********安装docker和docker-compose......"
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sh ./get-docker.sh
+  apt-get install docker-compose -y
+fi
 
 echo "********更改时区到美国中部时区......"
 timedatectl set-timezone America/Chicago
