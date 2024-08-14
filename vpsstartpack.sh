@@ -122,7 +122,7 @@ fi
 
 read -p "是否安装CertBot？(y/n) " cbot
 if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
-  apt install certbot
+  apt install certbot -y
 fi
 
 read -p "是否创建PHP测试网页？(y/n) " phpinfo
