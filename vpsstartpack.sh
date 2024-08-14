@@ -84,5 +84,5 @@ if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
   echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
   ipv4_address=$(curl -s ipv4.ip.sb)
   echo "PHP测试网页：http://$ipv4_address/infotest.php"
-  echo "如果网页能成功加载，就说明Lighttpd和PHP的运动环境安装成功。"
+  echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
 fi
