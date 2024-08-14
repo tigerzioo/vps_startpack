@@ -44,3 +44,23 @@ if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
   apt install mariadb-server
   mysql_secure_installation
 fi
+
+read -p "是否安装Lighttpd和PHP？(y/n) " httpd
+if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
+  apt install lighttpd php-cgi
+  
+  # Enable PHP CGI module
+  echo "" >> /etc/lighttpd/lighttpd.conf
+  echo "# Enable PHP CGI module" >> /etc/lighttpd/lighttpd.conf
+  echo "server.modules += (" >> /etc/lighttpd/lighttpd.conf
+  echo "  \"mod_fastcgi\"," >> /etc/lighttpd/lighttpd.conf
+  echo ")" >> /etc/lighttpd/lighttpd.conf
+
+  systemctl restart lighttpd
+fi
+
+read -p "是否安装CertBot？(y/n) " cbot
+if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
+  apt install certbot
+fi
+
