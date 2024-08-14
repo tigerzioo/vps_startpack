@@ -1,12 +1,12 @@
 echo "********系统更新升级......"
-apt-get update && apt-get upgrade
+apt-get update -y && apt-get upgrade -y
 echo "********安装sudo，curl......"
-apt install sudo curl
+apt install sudo curl -y
 
 echo "********安装docker和docker-compose......"
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh ./get-docker.sh
-apt-get install docker-compose
+apt-get install docker-compose -y
 
 echo "********更改时区到美国中部时区......"
 timedatectl set-timezone America/Chicago
@@ -41,13 +41,13 @@ fi
 
 read -p "是否安装MariaDB？(y/n) " maria
 if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
-  apt install mariadb-server
+  apt install mariadb-server -y
   mysql_secure_installation
 fi
 
 read -p "是否安装Lighttpd和PHP？(y/n) " httpd
 if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
-  apt install lighttpd php-cgi
+  apt install lighttpd php-cgi -y
   
   # Enable PHP CGI module
   echo "" >> /etc/lighttpd/lighttpd.conf
@@ -73,3 +73,11 @@ if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
   apt install certbot
 fi
 
+read -p "是否创建PHP测试网页？(y/n) " phpinfo
+if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
+  touch /var/www/html/infotest.php
+  echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
+  ipv4_address=$(curl -s ipv4.ip.sb)
+  echo "PHP测试网页：http://$ipv4_address/infotest.php"
+  echo "如果网页能成功加载，就说明Lighttpd和PHP的运动环境安装成功。"
+fi
