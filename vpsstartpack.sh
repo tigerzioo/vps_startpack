@@ -1,8 +1,17 @@
 #!/bin/bash
 
-echo "********系统更新升级......"
+echo "***************************"
+echo "*                         *"
+echo "********系统更新升级********"
+echo "*                         *"
+echo "***************************"
 apt-get update -y && apt-get upgrade -y
-echo "********安装sudo，curl......"
+
+echo "***************************"
+echo "*                         *"
+echo "********安装sudo，curl******"
+echo "*                         *"
+echo "***************************"
 apt install sudo curl -y
 
 read -p "是否安装docker和docker-compose？(y/n) " dock
