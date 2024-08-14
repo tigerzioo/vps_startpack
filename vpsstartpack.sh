@@ -13,8 +13,54 @@ if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
   apt-get install docker-compose -y
 fi
 
-echo "********更改时区到美国中部时区......"
-timedatectl set-timezone America/Chicago
+echo "********更改时区......"
+# timedatectl set-timezone America/Chicago
+
+# 获取当前系统时区
+timezone=$(current_timezone)
+
+# 获取当前系统时间
+current_time=$(date +"%Y-%m-%d %H:%M:%S")
+
+# 显示时区和时间
+echo "当前系统时区：$timezone"
+echo "当前系统时间：$current_time"
+
+echo ""
+echo "时区切换"
+echo "亚洲------------------------"
+echo "1. 中国上海时间              2. 中国香港时间"
+echo "3. 日本东京时间              4. 韩国首尔时间"
+echo "欧洲------------------------"
+echo "5. 英国伦敦时间             6. 法国巴黎时间"
+echo "7. 德国柏林时间             8. 俄罗斯莫斯科时间"
+echo "9. 荷兰阿姆斯特丹时间       10. 西班牙马德里时间"
+echo "美洲------------------------"
+echo "11. 美国西部时间             12. 美国东部时间"
+echo "13. 美国中部时间             14. 美国山地时间"
+echo "15. 加拿大时间               16. 墨西哥时间"
+echo "------------------------"
+read -p "请输入你的选择: " sub_choice
+
+
+case $sub_choice in
+    1) set_timedate Asia/Shanghai ;;
+    2) set_timedate Asia/Hong_Kong ;;
+    3) set_timedate Asia/Tokyo ;;
+    4) set_timedate Asia/Seoul ;;
+    5) set_timedate Europe/London ;;
+    6) set_timedate Europe/Paris ;;
+    7) set_timedate Europe/Berlin ;;
+    8) set_timedate Europe/Moscow ;;
+    9) set_timedate Europe/Amsterdam ;;
+    10) set_timedate Europe/Madrid ;;
+    11) set_timedate America/Los_Angeles ;;
+    12) set_timedate America/New_York ;;
+    13) set_timedate America/Chicago ;;
+    14) set_timedate America/Denver ;;
+    15) set_timedate America/Vancouver ;;
+    16) set_timedate America/Mexico_City ;;
+esac
 
 current_hostname=$(hostname)
 echo -e "当前主机名: $current_hostname"
