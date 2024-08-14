@@ -56,6 +56,15 @@ if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
   echo "  \"mod_fastcgi\"," >> /etc/lighttpd/lighttpd.conf
   echo ")" >> /etc/lighttpd/lighttpd.conf
 
+  echo "" >> /etc/lighttpd/lighttpd.conf
+  echo "# Handle PHP scripts" >> /etc/lighttpd/lighttpd.conf
+  echo "fastcgi.server = ( \".php\" =>" >> /etc/lighttpd/lighttpd.conf
+  echo "  ((" >> /etc/lighttpd/lighttpd.conf
+  echo "    \"socket\" => \"/var/run/lighttpd/php.socket\"," >> /etc/lighttpd/lighttpd.conf
+  echo "    \"bin-path\" => \"/usr/bin/php-cgi\"" >> /etc/lighttpd/lighttpd.conf
+  echo "  ))" >> /etc/lighttpd/lighttpd.conf
+  echo ")" >> /etc/lighttpd/lighttpd.conf
+
   systemctl restart lighttpd
 fi
 
