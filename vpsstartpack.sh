@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sh_v="2.9.10"
+
 echo "********系统更新升级......"
 apt-get update -y && apt-get upgrade -y
 echo "********安装sudo，curl......"
