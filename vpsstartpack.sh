@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "********系统更新升级......"
 apt-get update -y && apt-get upgrade -y
 echo "********安装sudo，curl......"
