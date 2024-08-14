@@ -33,3 +33,14 @@ if [ -n "$new_user" ] && [ "$new_user" != "0" ]; then
 else
   echo "未创建用户。"
 fi
+
+read -p "是否创建Docker网络？(y/n) " docknet
+if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
+  docker network create --subnet=172.18.0.0/24 dockernet
+fi
+
+read -p "是否安装MariaDB？(y/n) " maria
+if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
+  apt install mariadb-server
+  mysql_secure_installation
+fi
