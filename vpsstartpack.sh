@@ -112,19 +112,23 @@ sethost() {
 
 addnonrootusr() {
   echo "------------------------"
-  read -p "创建新用户（直接回车不创建）: " new_user
+  read -p "创建非root用户（直接回车不创建）: " new_user
   if [ -n "$new_user" ] && [ "$new_user" != "0" ]; then
     adduser "$new_user"
     usermod -aG sudo "$new_user"
   else
     echo "未创建用户。"
   fi
-  
+}
+
+adddockernet() {
   read -p "是否创建Docker网络？(y/n) " docknet
   if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
     docker network create --subnet=172.18.0.0/24 dockernet
   fi
-  
+}
+
+aptmariadb() {
   read -p "是否安装MariaDB？(y/n) " maria
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
     apt install mariadb-server -y
@@ -186,6 +190,10 @@ set_sep
 sethost
 set_sep
 addnonrootusr
+set_sep
+adddockernet
+set_sep
+aptmariadb
 set_sep
 aptlighttpd
 set_sep
