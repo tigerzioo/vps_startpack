@@ -1,11 +1,5 @@
 #!/bin/bash
 
-updatesys
-set_sep
-apttools
-set_sep
-exit;
-
 updatesys() {
   echo "****************************"
   echo "*                          *"
@@ -24,70 +18,82 @@ apttools() {
   apt install sudo curl apt -y
 }
 
-echo "****************************"
-echo "*                          *"
-echo "*安装docker和docker-compose*"
-echo "*                          *"
-echo "****************************"
+aptdocker() {
+  echo "****************************"
+  echo "*                          *"
+  echo "*安装docker和docker-compose*"
+  echo "*                          *"
+  echo "****************************"
+  
+  read -p "是否安装docker和docker-compose？(y/n) " dock
+  if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
+    echo "********安装docker和docker-compose......"
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    sh ./get-docker.sh
+    apt-get install docker-compose -y
+  fi
+}
 
-read -p "是否安装docker和docker-compose？(y/n) " dock
-if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
-  echo "********安装docker和docker-compose......"
-  curl -fsSL https://get.docker.com -o get-docker.sh
-  sh ./get-docker.sh
-  apt-get install docker-compose -y
-fi
-
-echo "********更改时区......"
-# timedatectl set-timezone America/Chicago
-
-# 获取当前系统时区
-timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
-
-# 获取当前系统时间
-current_time=$(date +"%Y-%m-%d %H:%M:%S")
-
-# 显示时区和时间
-echo "当前系统时区：$timezone"
-echo "当前系统时间：$current_time"
-
-echo ""
-echo "时区切换"
-echo "亚洲------------------------"
-echo "1. 中国上海时间              2. 中国香港时间"
-echo "3. 日本东京时间              4. 韩国首尔时间"
-echo "欧洲------------------------"
-echo "5. 英国伦敦时间             6. 法国巴黎时间"
-echo "7. 德国柏林时间             8. 俄罗斯莫斯科时间"
-echo "9. 荷兰阿姆斯特丹时间       10. 西班牙马德里时间"
-echo "美洲------------------------"
-echo "11. 美国西部时间             12. 美国东部时间"
-echo "13. 美国中部时间             14. 美国山地时间"
-echo "15. 加拿大时间               16. 墨西哥时间"
-echo "------------------------"
-read -p "请输入你的选择: " sub_choice
-
-
-case $sub_choice in
-    1) timedatectl set-timezone Asia/Shanghai ;;
-    2) timedatectl set-timezone Asia/Hong_Kong ;;
-    3) timedatectl set-timezone Asia/Tokyo ;;
-    4) timedatectl set-timezone Asia/Seoul ;;
-    5) timedatectl set-timezone Europe/London ;;
-    6) timedatectl set-timezone Europe/Paris ;;
-    7) timedatectl set-timezone Europe/Berlin ;;
-    8) timedatectl set-timezone Europe/Moscow ;;
-    9) timedatectl set-timezone Europe/Amsterdam ;;
-    10) timedatectl set-timezone Europe/Madrid ;;
-    11) timedatectl set-timezone America/Los_Angeles ;;
-    12) timedatectl set-timezone America/New_York ;;
-    13) timedatectl set-timezone America/Chicago ;;
-    14) timedatectl set-timezone America/Denver ;;
-    15) timedatectl set-timezone America/Vancouver ;;
-    16) timedatectl set-timezone America/Mexico_City ;;
-esac
-timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
-echo "更改后系统时区：$timezone"
+settzone() {
+  echo "********更改时区......"
+  # timedatectl set-timezone America/Chicago
+  
+  # 获取当前系统时区
+  timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
+  
+  # 获取当前系统时间
+  current_time=$(date +"%Y-%m-%d %H:%M:%S")
+  
+  # 显示时区和时间
+  echo "当前系统时区：$timezone"
+  echo "当前系统时间：$current_time"
+  
+  echo ""
+  echo "时区切换"
+  echo "亚洲------------------------"
+  echo "1. 中国上海时间              2. 中国香港时间"
+  echo "3. 日本东京时间              4. 韩国首尔时间"
+  echo "欧洲------------------------"
+  echo "5. 英国伦敦时间             6. 法国巴黎时间"
+  echo "7. 德国柏林时间             8. 俄罗斯莫斯科时间"
+  echo "9. 荷兰阿姆斯特丹时间       10. 西班牙马德里时间"
+  echo "美洲------------------------"
+  echo "11. 美国西部时间             12. 美国东部时间"
+  echo "13. 美国中部时间             14. 美国山地时间"
+  echo "15. 加拿大时间               16. 墨西哥时间"
+  echo "------------------------"
+  read -p "请输入你的选择: " sub_choice
+  
+  
+  case $sub_choice in
+      1) timedatectl set-timezone Asia/Shanghai ;;
+      2) timedatectl set-timezone Asia/Hong_Kong ;;
+      3) timedatectl set-timezone Asia/Tokyo ;;
+      4) timedatectl set-timezone Asia/Seoul ;;
+      5) timedatectl set-timezone Europe/London ;;
+      6) timedatectl set-timezone Europe/Paris ;;
+      7) timedatectl set-timezone Europe/Berlin ;;
+      8) timedatectl set-timezone Europe/Moscow ;;
+      9) timedatectl set-timezone Europe/Amsterdam ;;
+      10) timedatectl set-timezone Europe/Madrid ;;
+      11) timedatectl set-timezone America/Los_Angeles ;;
+      12) timedatectl set-timezone America/New_York ;;
+      13) timedatectl set-timezone America/Chicago ;;
+      14) timedatectl set-timezone America/Denver ;;
+      15) timedatectl set-timezone America/Vancouver ;;
+      16) timedatectl set-timezone America/Mexico_City ;;
+  esac
+  timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
+  echo "更改后系统时区：$timezone"
+}
+updatesys
+set_sep
+apttools
+set_sep
+aptdocker
+set_sep
+settzone
+exit;
 
 current_hostname=$(hostname)
 echo -e "当前主机名: $current_hostname"
