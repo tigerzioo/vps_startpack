@@ -42,9 +42,17 @@ aptdocker() {
   read -p "是否安装docker和docker-compose？(y/n) " dock
   if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
     echo "********安装docker和docker-compose......"
+    # install docker
     curl -fsSL https://get.docker.com -o get-docker.sh
     sh ./get-docker.sh
-    apt-get install docker-compose -y
+
+    # install docker-compose
+    # apt-get install docker-compose -y
+    curl -L "https://github.com/docker/compose/releases/download/2.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+    echo "++++++++++++++++++++安装完成...................."
+    docker -v
+    docker-compose --version
   fi
 }
 
