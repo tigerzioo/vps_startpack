@@ -52,7 +52,7 @@ aptdocker() {
     chmod +x /usr/local/bin/docker-compose
     echo "++++++++++++++++++++安装完成...................."
     docker -v
-    docker-compose --version
+    docker-compose -v
   fi
 }
 
