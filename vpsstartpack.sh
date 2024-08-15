@@ -1,18 +1,34 @@
 #!/bin/bash
 
-echo "****************************"
-echo "*                          *"
-echo "********系统更新升级********"
-echo "*                          *"
-echo "****************************"
-apt-get update -y && apt-get upgrade -y
+updatesys
+set_sep
+apttools
+set_sep
+exit;
+
+updatesys() {
+  echo "****************************"
+  echo "*                          *"
+  echo "********系统更新升级********"
+  echo "*                          *"
+  echo "****************************"
+  apt-get update -y && apt-get upgrade -y
+}
+
+apttools() {
+  echo "****************************"
+  echo "*                          *"
+  echo "*****安装sudo curl apt*****"
+  echo "*                          *"
+  echo "****************************"
+  apt install sudo curl apt -y
+}
 
 echo "****************************"
 echo "*                          *"
-echo "********安装sudo，curl******"
+echo "*安装docker和docker-compose*"
 echo "*                          *"
 echo "****************************"
-apt install sudo curl -y
 
 read -p "是否安装docker和docker-compose？(y/n) " dock
 if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
@@ -143,3 +159,10 @@ if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
   echo "PHP测试网页：http://$ipv4_address/infotest.php"
   echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
 fi
+
+set_sep() {
+echo "++++++++++++++++++++++++++++"
+echo ""
+echo ""
+echo "++++++++++++++++++++++++++++"
+}
