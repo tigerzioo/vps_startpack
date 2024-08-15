@@ -7,7 +7,7 @@ apt install curl
 \
 运行一键脚本
 ```
-curl -sS -O https://raw.githubusercontent.com/tigerzioo/vps_startpack/main/vpsstartpack.sh && chmod +x vpsstartpack.sh && ./vpsstartpack.sh
+curl -sS -O https://raw.githubusercontent.com/tigerzioo/vps_startpack/main/vpsstartpack.sh && bash vpsstartpack.sh
 ```
 或者
 ```
