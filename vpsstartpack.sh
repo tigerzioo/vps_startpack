@@ -13,7 +13,11 @@ updatesys() {
   echo "********系统更新升级********"
   echo "*                          *"
   echo "****************************"
-  apt-get update -y && apt-get upgrade -y
+
+  read -p "是否升级更新系统软件包？(y/n) " upsys
+  if [[ "$upsys" == "y" || "$upsys" == "Y" ]]; then
+    apt-get update -y && apt-get upgrade -y
+  fi
 }
 
 apttools() {
@@ -22,7 +26,10 @@ apttools() {
   echo "*****安装sudo curl apt*****"
   echo "*                          *"
   echo "****************************"
-  apt install sudo curl apt -y
+  read -p "是否安装常用工具？(y/n) " instool
+  if [[ "$instool" == "y" || "$instool" == "Y" ]]; then
+    apt install sudo curl apt -y
+  fi
 }
 
 aptdocker() {
@@ -122,7 +129,7 @@ addnonrootusr() {
 }
 
 adddockernet() {
-  read -p "是否创建Docker网络？(y/n) " docknet
+  read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n) " docknet
   if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
     docker network create --subnet=172.18.0.0/24 dockernet
   fi
