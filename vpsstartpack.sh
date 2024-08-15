@@ -48,7 +48,7 @@ aptdocker() {
 
     # install docker-compose
     # apt-get install docker-compose -y
-    curl -L "https://github.com/docker/compose/releases/download/2.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    curl -SL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
     echo "++++++++++++++++++++安装完成...................."
     docker -v
