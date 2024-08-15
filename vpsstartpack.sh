@@ -124,7 +124,14 @@ sethost() {
     if [ -n "$new_hostname" ] && [ "$new_hostname" != "0" ]; then
       hostnamectl set-hostname "$new_hostname"
       sed -i "s/$current_hostname/$new_hostname/g" /etc/hostname
-      sed -i "1 s/localhost/localhost $new_hostname/" /etc/hosts
+      
+      grep -q "$current_hostname" /etc/hosts
+      if [ $? -eq 0 ]; then
+          sed -i "s/$current_hostname/$new_hostname/g" /etc/hosts
+      else
+          sed -i "1 s/localhost/localhost $new_hostname/" /etc/hosts
+      fi
+
       systemctl restart systemd-hostnamed
     else
       echo "未更改主机名。"
