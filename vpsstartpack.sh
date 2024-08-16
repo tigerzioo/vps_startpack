@@ -17,6 +17,8 @@ updatesys() {
   read -p "是否升级更新系统软件包？(y/n) " upsys
   if [[ "$upsys" == "y" || "$upsys" == "Y" ]]; then
     apt-get update -y && apt-get upgrade -y
+  else
+    echo "++++++++++跳过系统软件包升级更新...................."
   fi
 }
 
@@ -29,6 +31,8 @@ apttools() {
   read -p "是否安装常用工具？(y/n) " instool
   if [[ "$instool" == "y" || "$instool" == "Y" ]]; then
     apt install sudo curl apt -y
+  else
+    echo "++++++++++跳过常用工具安装...................."
   fi
 }
 
@@ -53,6 +57,8 @@ aptdocker() {
     echo "++++++++++++++++++++安装完成...................."
     docker -v
     docker-compose -v
+  else
+    echo "++++++++++跳过docker和docker-compose安装...................."
   fi
 }
 
@@ -111,8 +117,10 @@ settzone() {
         16) timedatectl set-timezone America/Mexico_City ;;
     esac
     timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
-    echo "更改后系统时区：$timezone"
-  fi
+    echo "++++++++++更改后系统时区：$timezone...................."
+  else
+    echo "++++++++++未更改系统时区...................."
+fi
 }
 
 sethost() {
@@ -139,10 +147,10 @@ sethost() {
       else
           sed -i "1 s/localhost/localhost $new_hostname/" /etc/hosts
       fi
-
       systemctl restart systemd-hostnamed
+      echo "++++++++++主机名更改为：$new_hostname...................."
     else
-      echo "未更改主机名。"
+      echo "++++++++++未更改主机名...................."
     fi
   fi
 }
@@ -160,8 +168,9 @@ addnonrootusr() {
     if [ -n "$new_user" ] && [ "$new_user" != "0" ]; then
       adduser "$new_user"
       usermod -aG sudo "$new_user"
+      echo "++++++++++创建新用户：$new_user...................."
     else
-      echo "未创建用户。"
+      echo "++++++++++未创建新用户...................."
     fi
   fi
 }
@@ -175,6 +184,8 @@ adddockernet() {
   read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n) " docknet
   if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
     docker network create --subnet=172.18.0.0/24 dockernet
+  else
+    echo "++++++++++未创建Docker网络...................."
   fi
 }
 
@@ -188,6 +199,8 @@ aptmariadb() {
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
     apt install mariadb-server -y
     mysql_secure_installation
+  else
+    echo "++++++++++跳守Mariadb安装...................."
   fi
 }
 
@@ -218,6 +231,8 @@ aptlighttpd() {
     echo ")" >> /etc/lighttpd/lighttpd.conf
   
     systemctl restart lighttpd
+  else
+    echo "++++++++++跳过Lighttpd和PHP安装...................."
   fi
 }
 
@@ -230,6 +245,8 @@ aptcertbot() {
   read -p "是否安装CertBot？(y/n) " cbot
   if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
     apt install certbot -y
+  else
+    echo "++++++++++跳过Certbot安装...................."
   fi
 }
 
@@ -246,6 +263,8 @@ addphpinfo() {
     ipv4_address=$(curl -s ipv4.ip.sb)
     echo "PHP测试网页：http://$ipv4_address/infotest.php"
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
+  else
+    echo "++++++++++未创建PHP测试网页...................."
   fi
 }
 
