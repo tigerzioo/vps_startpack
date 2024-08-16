@@ -1,7 +1,7 @@
 VPS初始设置一键脚本 （只支持 ubuntu 和 debian 系统）
 
 功能：\
-升级更背后系统软件包\
+升级更新系统软件包\
 安装常用工具\
 添加Swap虚拟内存\
 安装docker和docker-compose\
