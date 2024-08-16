@@ -14,9 +14,11 @@ updatesys() {
   echo "*                          *"
   echo "****************************"
 
-  read -p "是否升级更新系统软件包？(y/n) " upsys
+  read -p "是否升级更新系统软件包？(y/n/q) " upsys
   if [[ "$upsys" == "y" || "$upsys" == "Y" ]]; then
     apt-get update -y && apt-get upgrade -y
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳过系统软件包升级更新...................."
   fi
