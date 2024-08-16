@@ -49,6 +49,7 @@ addswap() {
   if [ "$swap_total" -gt 0 ]; then
     echo "++++++++++虚拟内存已设置...................."
   else
+    echo "++++++++++虚拟内存还未设置...................."
     read -p "是否添加虚拟内存？(y/n) " addswap
     if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
       fallocate -l 1G /swapfile
