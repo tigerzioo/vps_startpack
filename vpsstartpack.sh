@@ -36,6 +36,38 @@ apttools() {
   fi
 }
 
+addswap() {
+  echo "****************************"
+  echo "*                          *"
+  echo "******设置swap虚拟内存******"
+  echo "*                          *"
+  echo "****************************"
+  free -h
+  swap_total=$(free -m | awk 'NR==3{print $2}')
+
+  # Check swap
+  if [ "$swap_total" -gt 0 ]; then
+    echo "++++++++++虚拟内存已设置...................."
+  else
+    read -p "是否添加虚拟内存？(y/n) " addswap
+    if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
+      fallocate -l 1G /swapfile
+      chmod 600 /swapfile
+      mkswap /swapfile
+      swapon /swapfile
+      echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+      echo "vm.swappiness=20" >> /etc/sysctl.conf
+      echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
+      sysctl vm.swappiness=20
+      sysctl vm.vfs_cache_pressure=50
+      echo "++++++++++虚拟内存设置成功...................."
+      free -h
+    else
+      echo "++++++++++跳过虚拟内存设置...................."
+    fi
+  fi
+}
+
 aptdocker() {
   echo "****************************"
   echo "*                          *"
@@ -281,6 +313,8 @@ clear
 updatesys
 set_sep
 apttools
+set_sep
+addswap
 set_sep
 aptdocker
 set_sep
