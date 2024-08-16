@@ -261,8 +261,10 @@ addphpinfo() {
     touch /var/www/html/infotest.php
     echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
     ipv4_address=$(curl -s ipv4.ip.sb)
-    echo "PHP测试网页：http://$ipv4_address/infotest.php"
+    echo "++++++++++PHP测试网页...................."
+    echo "http://$ipv4_address/infotest.php"
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
+    echo "++++++++++++++++++++++++++++++++++++++++"
   else
     echo "++++++++++未创建PHP测试网页...................."
   fi
