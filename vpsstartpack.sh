@@ -30,9 +30,11 @@ apttools() {
   echo "******安装sudo curl apt*****"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装常用工具？(y/n) " instool
+  read -p "是否安装常用工具？(y/n/q) " instool
   if [[ "$instool" == "y" || "$instool" == "Y" ]]; then
     apt install sudo curl apt -y
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳过常用工具安装...................."
   fi
@@ -52,7 +54,7 @@ addswap() {
     echo "++++++++++虚拟内存已设置...................."
   else
     echo "++++++++++虚拟内存还未设置...................."
-    read -p "是否添加虚拟内存？(y/n) " addswap
+    read -p "是否添加虚拟内存？(y/n/q) " addswap
     if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
       fallocate -l 1G /swapfile
       chmod 600 /swapfile
@@ -65,6 +67,8 @@ addswap() {
       sysctl vm.vfs_cache_pressure=50
       echo "++++++++++虚拟内存设置成功...................."
       free -h
+    elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+      exit
     else
       echo "++++++++++跳过虚拟内存设置...................."
     fi
@@ -78,7 +82,7 @@ aptdocker() {
   echo "*                          *"
   echo "****************************"
   
-  read -p "是否安装docker和docker-compose？(y/n) " dock
+  read -p "是否安装docker和docker-compose？(y/n/q) " dock
   if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
     echo "********安装docker和docker-compose......"
     # install docker
@@ -92,6 +96,8 @@ aptdocker() {
     echo "++++++++++++++++++++安装完成...................."
     docker -v
     docker-compose -v
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳过docker和docker-compose安装...................."
   fi
@@ -115,7 +121,7 @@ settzone() {
   echo "当前系统时区：$timezone"
   echo "当前系统时间：$current_time"
 
-  read -p "是否更改系统时区？(y/n) " chgzone
+  read -p "是否更改系统时区？(y/n/q) " chgzone
   if [[ "$chgzone" == "y" || "$chgzone" == "Y" ]]; then
     echo ""
     echo "时区切换"
@@ -153,6 +159,8 @@ settzone() {
     esac
     timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
     echo "++++++++++更改后系统时区：$timezone...................."
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++未更改系统时区...................."
 fi
@@ -167,7 +175,7 @@ sethost() {
   current_hostname=$(hostname)
   echo -e "当前主机名: $current_hostname"
   
-  read -p "是否更改主机名？(y/n) " chghost
+  read -p "是否更改主机名？(y/n/q) " chghost
   if [[ "$chghost" == "y" || "$chghost" == "Y" ]]; then
     echo "------------------------"
     read -p "请输入新的主机名（直接回车不更改）: " new_hostname
@@ -184,7 +192,9 @@ sethost() {
       fi
       systemctl restart systemd-hostnamed
       echo "++++++++++主机名更改为：$new_hostname...................."
-    else
+   elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
+   else
       echo "++++++++++未更改主机名...................."
     fi
   fi
@@ -196,7 +206,7 @@ addnonrootusr() {
   echo "*******创建非root用户*******"
   echo "*                          *"
   echo "****************************"
-  read -p "是否创建非root用户？(y/n) " addu
+  read -p "是否创建非root用户？(y/n/q) " addu
   if [[ "$addu" == "y" || "$addu" == "Y" ]]; then
     echo "------------------------"
     read -p "创建非root用户（直接回车不创建）: " new_user
@@ -207,6 +217,10 @@ addnonrootusr() {
     else
       echo "++++++++++未创建新用户...................."
     fi
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
+  else
+    echo "++++++++++跳过用户建新...................."
   fi
 }
 
@@ -216,9 +230,11 @@ adddockernet() {
   echo "*******创建Docker网络*******"
   echo "*                          *"
   echo "****************************"
-  read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n) " docknet
+  read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n/q) " docknet
   if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
     docker network create --subnet=172.18.0.0/24 dockernet
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++未创建Docker网络...................."
   fi
@@ -230,10 +246,12 @@ aptmariadb() {
   echo "******安装MariaDB数据库*****"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装MariaDB？(y/n) " maria
+  read -p "是否安装MariaDB？(y/n/q) " maria
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
     apt install mariadb-server -y
     mysql_secure_installation
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳守Mariadb安装...................."
   fi
@@ -245,7 +263,7 @@ aptlighttpd() {
   echo "******安装Lighttpd和PHP*****"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装Lighttpd和PHP？(y/n) " httpd
+  read -p "是否安装Lighttpd和PHP？(y/n/q) " httpd
   if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
     apt install lighttpd php-cgi -y
     
@@ -266,6 +284,8 @@ aptlighttpd() {
     echo ")" >> /etc/lighttpd/lighttpd.conf
   
     systemctl restart lighttpd
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳过Lighttpd和PHP安装...................."
   fi
@@ -277,9 +297,11 @@ aptcertbot() {
   echo "*********安装CertBot********"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装CertBot？(y/n) " cbot
+  read -p "是否安装CertBot？(y/n/q) " cbot
   if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
     apt install certbot -y
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++跳过Certbot安装...................."
   fi
@@ -291,7 +313,7 @@ addphpinfo() {
   echo "*******创建PHP测试网页******"
   echo "*                          *"
   echo "****************************"
-  read -p "是否创建PHP测试网页？(y/n) " phpinfo
+  read -p "是否创建PHP测试网页？(y/n/q) " phpinfo
   if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
     touch /var/www/html/infotest.php
     echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
@@ -301,6 +323,8 @@ addphpinfo() {
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
     echo "++++++++++++++++++++++++++++++++++++++++"
     echo ""
+  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    exit
   else
     echo "++++++++++未创建PHP测试网页...................."
     echo ""
