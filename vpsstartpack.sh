@@ -265,8 +265,10 @@ addphpinfo() {
     echo "http://$ipv4_address/infotest.php"
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
     echo "++++++++++++++++++++++++++++++++++++++++"
+    echo ""
   else
     echo "++++++++++未创建PHP测试网页...................."
+    echo ""
   fi
 }
 
