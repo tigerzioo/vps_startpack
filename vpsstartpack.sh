@@ -33,7 +33,7 @@ apttools() {
   read -p "是否安装常用工具？(y/n/q) " instool
   if [[ "$instool" == "y" || "$instool" == "Y" ]]; then
     apt install sudo curl apt -y
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$instool" == "q" || "$instool" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳过常用工具安装...................."
@@ -67,7 +67,7 @@ addswap() {
       sysctl vm.vfs_cache_pressure=50
       echo "++++++++++虚拟内存设置成功...................."
       free -h
-    elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+    elif [[ "$addswap" == "q" || "$addswap" == "Q" ]]; then
       exit
     else
       echo "++++++++++跳过虚拟内存设置...................."
@@ -96,7 +96,7 @@ aptdocker() {
     echo "++++++++++++++++++++安装完成...................."
     docker -v
     docker-compose -v
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳过docker和docker-compose安装...................."
@@ -159,7 +159,7 @@ settzone() {
     esac
     timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
     echo "++++++++++更改后系统时区：$timezone...................."
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$chgzone" == "q" || "$chgzone" == "Q" ]]; then
     exit
   else
     echo "++++++++++未更改系统时区...................."
@@ -192,7 +192,7 @@ sethost() {
       fi
       systemctl restart systemd-hostnamed
       echo "++++++++++主机名更改为：$new_hostname...................."
-   elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+   elif [[ "$chghost" == "q" || "$chghost" == "Q" ]]; then
     exit
    else
       echo "++++++++++未更改主机名...................."
@@ -217,7 +217,7 @@ addnonrootusr() {
     else
       echo "++++++++++未创建新用户...................."
     fi
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$addu" == "q" || "$addu" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳过用户建新...................."
@@ -233,7 +233,7 @@ adddockernet() {
   read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n/q) " docknet
   if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
     docker network create --subnet=172.18.0.0/24 dockernet
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$docknet" == "q" || "$docknet" == "Q" ]]; then
     exit
   else
     echo "++++++++++未创建Docker网络...................."
@@ -250,7 +250,7 @@ aptmariadb() {
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
     apt install mariadb-server -y
     mysql_secure_installation
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳守Mariadb安装...................."
@@ -284,7 +284,7 @@ aptlighttpd() {
     echo ")" >> /etc/lighttpd/lighttpd.conf
   
     systemctl restart lighttpd
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$httpd" == "q" || "$httpd" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳过Lighttpd和PHP安装...................."
@@ -300,7 +300,7 @@ aptcertbot() {
   read -p "是否安装CertBot？(y/n/q) " cbot
   if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
     apt install certbot -y
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$cbot" == "q" || "$cbot" == "Q" ]]; then
     exit
   else
     echo "++++++++++跳过Certbot安装...................."
@@ -323,7 +323,7 @@ addphpinfo() {
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
     echo "++++++++++++++++++++++++++++++++++++++++"
     echo ""
-  elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
+  elif [[ "$phpinfo" == "q" || "$phpinfo" == "Q" ]]; then
     exit
   else
     echo "++++++++++未创建PHP测试网页...................."
