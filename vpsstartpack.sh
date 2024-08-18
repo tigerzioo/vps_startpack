@@ -251,9 +251,13 @@ aptmariadb() {
     PS3="请选择 MariaDB 的版本："
     select ver in "10.5" "11.4"  
     if [[ "$REPLY" == 1 ]]; then
+      echo "++++++++++安装 Mariadb 10.5 ...................."
+      exit
       apt install mariadb-server -y
       mysql_secure_installation
     elif [[ "$REPLY" == 2 ]]; then
+      echo "++++++++++安装 Mariadb 11.4 ...................."
+      exit
       curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=11.4.3
       apt update
       apt -y install mariadb-server mariadb-client
