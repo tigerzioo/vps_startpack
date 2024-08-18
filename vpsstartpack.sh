@@ -248,8 +248,19 @@ aptmariadb() {
   echo "****************************"
   read -p "是否安装MariaDB？(y/n/q) " maria
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
-    apt install mariadb-server -y
-    mysql_secure_installation
+    PS3="请选择 MariaDB 的版本："
+    select ver in "10.5" "11.4"  
+    if [[ "$REPLY" == 1 ]]; then
+      apt install mariadb-server -y
+      mysql_secure_installation
+    elif [[ "$REPLY" == 2 ]]; then
+      curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=11.4.3
+      apt update
+      apt -y install mariadb-server mariadb-client
+      mariadb-secure-installation
+    else
+      echo "++++++++++跳守Mariadb安装...................."
+    fi
   elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
     exit
   else
