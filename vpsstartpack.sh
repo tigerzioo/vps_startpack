@@ -249,10 +249,10 @@ aptmariadb() {
   read -p "是否安装MariaDB？(y/n/q) " maria
   if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
     PS3="请选择 MariaDB 的版本："
-    select ver in "10.5" "11.4"
+    select ver in "系统自带版本" "11.4"
     do
       if [[ "$REPLY" == 1 ]]; then
-        echo "++++++++++安装 Mariadb 10.5 ...................."
+        echo "++++++++++安装 Mariadb 系统自带版本 ...................."
         apt install mariadb-server -y
         mysql_secure_installation
         break
