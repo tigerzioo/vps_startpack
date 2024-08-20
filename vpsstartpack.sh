@@ -265,7 +265,7 @@ adddockernet() {
   echo "*******创建Docker网络*******"
   echo "*                          *"
   echo "****************************"
-  if docker network inspect docknet &> /dev/null; then
+  if docker network inspect dockernet &> /dev/null; then
     echo "++++++++++ Docker 网络 (172.18.0.1/24) 已创建 ...................."
   else
     read -p "是否创建 Docker 网络 (172.18.0.1/24)？(y/n/q) " docknet
