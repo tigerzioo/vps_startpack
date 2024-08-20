@@ -324,40 +324,41 @@ aptlighttpd() {
 
   if ! isInstalled "lighttpd" || ! isInstalled "php"; then
   
-      read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
-      if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
-        if ! isInstalled "lighttpd"; then
-          apt install lighttpd -y
-        fi
+    read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
+    if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
+      if ! isInstalled "lighttpd"; then
+        apt install lighttpd -y
+      fi
 
-        if ! isInstalled "php"; then
-          apt install php-cgi -y
-        fi
+      if ! isInstalled "php"; then
+        apt install php-cgi -y
+      fi
     
-        # Enable PHP CGI module
-        echo "" >> /etc/lighttpd/lighttpd.conf
-        echo "# Enable PHP CGI module" >> /etc/lighttpd/lighttpd.conf
-        echo "server.modules += (" >> /etc/lighttpd/lighttpd.conf
-        echo "  \"mod_fastcgi\"," >> /etc/lighttpd/lighttpd.conf
-        echo ")" >> /etc/lighttpd/lighttpd.conf
+      # Enable PHP CGI module
+      echo "" >> /etc/lighttpd/lighttpd.conf
+      echo "# Enable PHP CGI module" >> /etc/lighttpd/lighttpd.conf
+      echo "server.modules += (" >> /etc/lighttpd/lighttpd.conf
+      echo "  \"mod_fastcgi\"," >> /etc/lighttpd/lighttpd.conf
+      echo ")" >> /etc/lighttpd/lighttpd.conf
       
-        echo "" >> /etc/lighttpd/lighttpd.conf
-        echo "# Handle PHP scripts" >> /etc/lighttpd/lighttpd.conf
-        echo "fastcgi.server = ( \".php\" =>" >> /etc/lighttpd/lighttpd.conf
-        echo "  ((" >> /etc/lighttpd/lighttpd.conf
-        echo "    \"socket\" => \"/var/run/lighttpd/php.socket\"," >> /etc/lighttpd/lighttpd.conf
-        echo "    \"bin-path\" => \"/usr/bin/php-cgi\"" >> /etc/lighttpd/lighttpd.conf
-        echo "  ))" >> /etc/lighttpd/lighttpd.conf
-        echo ")" >> /etc/lighttpd/lighttpd.conf
-      
-        systemctl restart lighttpd
+      echo "" >> /etc/lighttpd/lighttpd.conf
+      echo "# Handle PHP scripts" >> /etc/lighttpd/lighttpd.conf
+      echo "fastcgi.server = ( \".php\" =>" >> /etc/lighttpd/lighttpd.conf
+      echo "  ((" >> /etc/lighttpd/lighttpd.conf
+      echo "    \"socket\" => \"/var/run/lighttpd/php.socket\"," >> /etc/lighttpd/lighttpd.conf
+      echo "    \"bin-path\" => \"/usr/bin/php-cgi\"" >> /etc/lighttpd/lighttpd.conf
+      echo "  ))" >> /etc/lighttpd/lighttpd.conf
+      echo ")" >> /etc/lighttpd/lighttpd.conf
+     
+      systemctl restart lighttpd
 
-        addphpinfo
+      addphpinfo
 
       elif [[ "$httpd" == "q" || "$httpd" == "Q" ]]; then
         exit
       else
         echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
+        addphpinfo
       fi
     fi
 }
