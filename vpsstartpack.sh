@@ -392,21 +392,29 @@ addphpinfo() {
   echo "*******创建PHP测试网页******"
   echo "*                          *"
   echo "****************************"
-  read -p "是否创建PHP测试网页？(y/n/q) " phpinfo
-  if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
-    touch /var/www/html/infotest.php
-    echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
-    ipv4_address=$(curl -s ipv4.ip.sb)
-    echo "++++++++++ PHP测试网页 ...................."
+  if [ -f "/var/www/html/infotest.php" ]; then
+    echo "++++++++++ PHP测试网页已存在 ...................."
     echo "http://$ipv4_address/infotest.php"
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
     echo "++++++++++++++++++++++++++++++++++++++++"
     echo ""
-  elif [[ "$phpinfo" == "q" || "$phpinfo" == "Q" ]]; then
-    exit
   else
-    echo "++++++++++ 未创建PHP测试网页 ...................."
-    echo ""
+    read -p "是否创建PHP测试网页？(y/n/q) " phpinfo
+    if [[ "$phpinfo" == "y" || "$phpinfo" == "Y" ]]; then
+      touch /var/www/html/infotest.php
+      echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
+      ipv4_address=$(curl -s ipv4.ip.sb)
+      echo "++++++++++ PHP测试网页 ...................."
+      echo "http://$ipv4_address/infotest.php"
+      echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
+      echo "++++++++++++++++++++++++++++++++++++++++"
+      echo ""
+    elif [[ "$phpinfo" == "q" || "$phpinfo" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 未创建PHP测试网页 ...................."
+      echo ""
+    fi
   fi
 }
 
@@ -442,6 +450,6 @@ aptcertbot
 
   echo "*********************************************************************************"
   echo "*                                                                               *"
-  echo "*********************脚本运行完成，如果需要还可以重新执行脚本***********************"
+  echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
   echo "*********************************************************************************"
