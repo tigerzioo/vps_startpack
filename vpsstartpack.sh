@@ -109,8 +109,8 @@ aptdocker() {
     docker-compose -v
   else
     echo "Docker-Compose is not installed"
-    read -p "是否安装docker-compose？(y/n/q) " dock
-    if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
+    read -p "是否安装docker-compose？(y/n/q) " dockcom
+    if [[ "$dockcom" == "y" || "$dockcomd" == "Y" ]]; then
       echo "********安装docker-compose......"
       # install docker-compose
       # apt-get install docker-compose -y
@@ -118,7 +118,7 @@ aptdocker() {
       chmod +x /usr/local/bin/docker-compose
       echo "++++++++++++++++++++安装完成...................."
       docker-compose -v
-    elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
+    elif [[ "$dockcom" == "q" || "$dockcom" == "Q" ]]; then
       exit
     else
       echo "++++++++++跳过docker-compose安装...................."
