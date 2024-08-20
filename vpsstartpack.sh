@@ -8,6 +8,16 @@ echo ""
 echo "++++++++++++++++++++++++++++"
 }
 
+isInstalled() {
+    if command -v $1 &> /dev/null; then
+      echo "++++++++++ $1 已安装 ...................."
+      $1 -v
+    else
+      echo "++++++++++ $1 未安装 ...................."
+    fi
+
+}
+
 updatesys() {
   echo "****************************"
   echo "*                          *"
@@ -314,7 +324,21 @@ aptlighttpd() {
   echo "******安装Lighttpd和PHP*****"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装Lighttpd和PHP？(y/n/q) " httpd
+
+  if command -v php &> /dev/null; then
+    echo "++++++++++ PHP 已安装 ...................."
+    php -v
+  else
+    echo "++++++++++ PHP 未安装 ...................."
+  fi
+  if command -v lighttpd &> /dev/null; then
+    echo "++++++++++ Lighttpd 已安装 ...................."
+    lighttpd -v
+  else
+    echo "++++++++++ Lighttpd 未安装 ...................."
+  fi
+  
+  read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
   if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
     apt install lighttpd php-cgi -y
     
@@ -389,6 +413,7 @@ clear
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
   echo "*********************************************************************************"
+isInstalled（'docker'）
 updatesys
 set_sep
 apttools
