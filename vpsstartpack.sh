@@ -100,7 +100,6 @@ aptdocker() {
   echo "****************************"
 
   if ! isInstalled "docker"; then
-    echo "++++++++++ Docker 未安装 ...................."
     read -p "是否安装docker？(y/n/q) " dock
     if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
       echo "++++++++++ 安装docker ...................."
@@ -118,7 +117,6 @@ aptdocker() {
   fi
 
   if ! isInstalled "docker-compose"; then
-    echo "++++++++++ Docker-Compose 未安装 ...................."
     read -p "是否安装docker-compose？(y/n/q) " dockcom
     if [[ "$dockcom" == "y" || "$dockcomd" == "Y" ]]; then
       echo "++++++++++ 安装 docker-compose ...................."
@@ -287,7 +285,6 @@ aptmariadb() {
   echo "****************************"
   
   if ! isInstalled "mariadb" "version"; then
-    echo "++++++++++ MariaDB 未安装 ...................."
     read -p "是否安装MariaDB？(y/n/q) " maria
     if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
       PS3="请选择 MariaDB 的版本："
@@ -448,8 +445,9 @@ aptlighttpd
 set_sep
 aptcertbot
 
-  echo "*********************************************************************************"
-  echo "*                                                                               *"
-  echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
-  echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-  echo "*********************************************************************************"
+echo "*********************************************************************************"
+echo "*                                                                               *"
+echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
+echo "*            https://github.com/tigerzioo/vps_startpack                         *"
+echo "*********************************************************************************"
+echo ""
