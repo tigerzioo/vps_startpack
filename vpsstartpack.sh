@@ -87,32 +87,42 @@ aptdocker() {
     docker -v
   else
     echo "Docker is not installed"
+    read -p "是否安装docker？(y/n/q) " dock
+    if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
+      echo "********安装docker......"
+      # install docker
+      curl -fsSL https://get.docker.com -o get-docker.sh
+      sh ./get-docker.sh
+  
+      echo "++++++++++++++++++++安装完成...................."
+      docker -v
+    elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++跳过docker安装...................."
+    fi
+  }
+
   fi
   if command -v docker-compose &> /dev/null; then
     echo "Docker-Compose is installed"
     docker-compose -v
   else
     echo "Docker-Compose is not installed"
-  fi
-  
-  read -p "是否安装docker和docker-compose？(y/n/q) " dock
-  if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
-    echo "********安装docker和docker-compose......"
-    # install docker
-    curl -fsSL https://get.docker.com -o get-docker.sh
-    sh ./get-docker.sh
-
-    # install docker-compose
-    # apt-get install docker-compose -y
-    curl -SL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-    echo "++++++++++++++++++++安装完成...................."
-    docker -v
-    docker-compose -v
-  elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
-    exit
-  else
-    echo "++++++++++跳过docker和docker-compose安装...................."
+    read -p "是否安装docker-compose？(y/n/q) " dock
+    if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
+      echo "********安装docker-compose......"
+      # install docker-compose
+      # apt-get install docker-compose -y
+      curl -SL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
+      chmod +x /usr/local/bin/docker-compose
+      echo "++++++++++++++++++++安装完成...................."
+      docker-compose -v
+    elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++跳过docker-compose安装...................."
+    fi
   fi
 }
 
