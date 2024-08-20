@@ -20,7 +20,7 @@ updatesys() {
   elif [[ "$upsys" == "q" || "$upsys" == "Q" ]]; then
     exit
   else
-    echo "++++++++++跳过系统软件包升级更新...................."
+    echo "++++++++++ 跳过系统软件包升级更新 ...................."
   fi
 }
 
@@ -36,7 +36,7 @@ apttools() {
   elif [[ "$instool" == "q" || "$instool" == "Q" ]]; then
     exit
   else
-    echo "++++++++++跳过常用工具安装...................."
+    echo "++++++++++ 跳过常用工具安装 ...................."
   fi
 }
 
@@ -51,9 +51,9 @@ addswap() {
 
   # Check swap
   if [ "$swap_total" -gt 0 ]; then
-    echo "++++++++++虚拟内存已设置...................."
+    echo "++++++++++ 虚拟内存已设置 ...................."
   else
-    echo "++++++++++虚拟内存还未设置...................."
+    echo "++++++++++ 虚拟内存还未设置 ...................."
     read -p "是否添加虚拟内存？(y/n/q) " addswap
     if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
       fallocate -l 1G /swapfile
@@ -65,12 +65,12 @@ addswap() {
       echo "vm.vfs_cache_pressure=50" >> /etc/sysctl.conf
       sysctl vm.swappiness=20
       sysctl vm.vfs_cache_pressure=50
-      echo "++++++++++虚拟内存设置成功...................."
+      echo "++++++++++ 虚拟内存设置成功 ...................."
       free -h
     elif [[ "$addswap" == "q" || "$addswap" == "Q" ]]; then
       exit
     else
-      echo "++++++++++跳过虚拟内存设置...................."
+      echo "++++++++++ 跳过虚拟内存设置 ...................."
     fi
   fi
 }
@@ -83,44 +83,44 @@ aptdocker() {
   echo "****************************"
 
   if command -v docker &> /dev/null; then
-    echo "Docker is installed"
+    echo "++++++++++ Docker 已安装 ...................."
     docker -v
   else
-    echo "Docker is not installed"
+    echo "++++++++++ Docker 未安装 ...................."
     read -p "是否安装docker？(y/n/q) " dock
     if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
-      echo "********安装docker......"
+      echo "++++++++++ 安装docker ...................."
       # install docker
       curl -fsSL https://get.docker.com -o get-docker.sh
       sh ./get-docker.sh
   
-      echo "++++++++++++++++++++安装完成...................."
+      echo "++++++++++ 安装完成 ...................."
       docker -v
     elif [[ "$dock" == "q" || "$dock" == "Q" ]]; then
       exit
     else
-      echo "++++++++++跳过docker安装...................."
+      echo "++++++++++ 跳过 docker 安装 ...................."
     fi
   fi
 
   if command -v docker-compose &> /dev/null; then
-    echo "Docker-Compose is installed"
+    echo "++++++++++ Docker-Compose 已安装 ...................."
     docker-compose -v
   else
-    echo "Docker-Compose is not installed"
+    echo "++++++++++ Docker-Compose 未安装 ...................."
     read -p "是否安装docker-compose？(y/n/q) " dockcom
     if [[ "$dockcom" == "y" || "$dockcomd" == "Y" ]]; then
-      echo "********安装docker-compose......"
+      echo "++++++++++ 安装 docker-compose ...................."
       # install docker-compose
       # apt-get install docker-compose -y
       curl -SL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose
       chmod +x /usr/local/bin/docker-compose
-      echo "++++++++++++++++++++安装完成...................."
+      echo "++++++++++ 安装完成 ...................."
       docker-compose -v
     elif [[ "$dockcom" == "q" || "$dockcom" == "Q" ]]; then
       exit
     else
-      echo "++++++++++跳过docker-compose安装...................."
+      echo "++++++++++ 跳过docker-compose安装 ...................."
     fi
   fi
 }
@@ -180,11 +180,11 @@ settzone() {
         16) timedatectl set-timezone America/Mexico_City ;;
     esac
     timezone=$(timedatectl | grep "Time zone" | awk '{print $3}')
-    echo "++++++++++更改后系统时区：$timezone...................."
+    echo "++++++++++ 更改后系统时区：$timezone ...................."
   elif [[ "$chgzone" == "q" || "$chgzone" == "Q" ]]; then
     exit
   else
-    echo "++++++++++未更改系统时区...................."
+    echo "++++++++++ 未更改系统时区 ...................."
 fi
 }
 
@@ -213,11 +213,11 @@ sethost() {
           sed -i "1 s/localhost/localhost $new_hostname/" /etc/hosts
       fi
       systemctl restart systemd-hostnamed
-      echo "++++++++++主机名更改为：$new_hostname...................."
+      echo "++++++++++ 主机名更改为：$new_hostname ...................."
    elif [[ "$chghost" == "q" || "$chghost" == "Q" ]]; then
     exit
    else
-      echo "++++++++++未更改主机名...................."
+      echo "++++++++++ 未更改主机名 ...................."
     fi
   fi
 }
@@ -235,14 +235,14 @@ addnonrootusr() {
     if [ -n "$new_user" ] && [ "$new_user" != "0" ]; then
       adduser "$new_user"
       usermod -aG sudo "$new_user"
-      echo "++++++++++创建新用户：$new_user...................."
+      echo "++++++++++ 创建新用户：$new_user ...................."
     else
-      echo "++++++++++未创建新用户...................."
+      echo "++++++++++ 未创建新用户 ...................."
     fi
   elif [[ "$addu" == "q" || "$addu" == "Q" ]]; then
     exit
   else
-    echo "++++++++++跳过用户建新...................."
+    echo "++++++++++ 跳过新用户创建 ...................."
   fi
 }
 
@@ -258,7 +258,7 @@ adddockernet() {
   elif [[ "$docknet" == "q" || "$docknet" == "Q" ]]; then
     exit
   else
-    echo "++++++++++未创建Docker网络...................."
+    echo "++++++++++ 未创建 Docker 网络 ...................."
   fi
 }
 
@@ -268,31 +268,40 @@ aptmariadb() {
   echo "******安装MariaDB数据库*****"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装MariaDB？(y/n/q) " maria
-  if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
-    PS3="请选择 MariaDB 的版本："
-    select ver in "系统自带版本" "11.4"
-    do
-      if [[ "$REPLY" == 1 ]]; then
-        echo "++++++++++安装 Mariadb 系统自带版本 ...................."
-        apt install mariadb-server -y
-        mysql_secure_installation
-        break
-      elif [[ "$REPLY" == 2 ]]; then
-        echo "++++++++++安装 Mariadb 11.4 ...................."
-        curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=11.4.3
-        apt update
-        apt -y install mariadb-server mariadb-client
-        mariadb-secure-installation
-        break
-      else
-        echo "++++++++++跳守Mariadb安装...................."
-      fi
-    done
-  elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
-    exit
+  
+  if command -v mariadb &> /dev/null; then
+    echo "++++++++++ MariaDB 已安装 ...................."
+    mariadb --version
   else
-    echo "++++++++++跳守Mariadb安装...................."
+    echo "++++++++++ MariaDB 未安装 ...................."
+    read -p "是否安装MariaDB？(y/n/q) " maria
+    if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
+      PS3="请选择 MariaDB 的版本："
+      select ver in "系统自带版本" "11.4"
+      do
+        if [[ "$REPLY" == 1 ]]; then
+          echo "++++++++++ 安装 Mariadb 系统自带版本 ...................."
+          apt install mariadb-server -y
+          mysql_secure_installation
+          break
+        elif [[ "$REPLY" == 2 ]]; then
+          echo "++++++++++ 安装 Mariadb 11.4 ...................."
+          curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=11.4.3
+          apt update
+          apt -y install mariadb-server mariadb-client
+          mariadb-secure-installation
+          echo "++++++++++ Mariadb 安装完成 ...................."
+          mariadb --version
+          break
+        else
+          echo "++++++++++ 跳过 Mariadb 安装 ...................."
+        fi
+      done
+    elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 Mariadb 安装...................."
+    fi
   fi
 }
 
@@ -326,7 +335,7 @@ aptlighttpd() {
   elif [[ "$httpd" == "q" || "$httpd" == "Q" ]]; then
     exit
   else
-    echo "++++++++++跳过Lighttpd和PHP安装...................."
+    echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
   fi
 }
 
@@ -342,7 +351,7 @@ aptcertbot() {
   elif [[ "$cbot" == "q" || "$cbot" == "Q" ]]; then
     exit
   else
-    echo "++++++++++跳过Certbot安装...................."
+    echo "++++++++++ 跳过 Certbot 安装 ...................."
   fi
 }
 
@@ -357,7 +366,7 @@ addphpinfo() {
     touch /var/www/html/infotest.php
     echo "<?php phpinfo() ?>" >> /var/www/html/infotest.php
     ipv4_address=$(curl -s ipv4.ip.sb)
-    echo "++++++++++PHP测试网页...................."
+    echo "++++++++++ PHP测试网页 ...................."
     echo "http://$ipv4_address/infotest.php"
     echo "如果网页成功加载，说明Lighttpd和PHP的运行环境安装成功。"
     echo "++++++++++++++++++++++++++++++++++++++++"
@@ -365,7 +374,7 @@ addphpinfo() {
   elif [[ "$phpinfo" == "q" || "$phpinfo" == "Q" ]]; then
     exit
   else
-    echo "++++++++++未创建PHP测试网页...................."
+    echo "++++++++++ 未创建PHP测试网页 ...................."
     echo ""
   fi
 }
