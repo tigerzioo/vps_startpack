@@ -101,9 +101,8 @@ aptdocker() {
     else
       echo "++++++++++跳过docker安装...................."
     fi
-  }
-
   fi
+
   if command -v docker-compose &> /dev/null; then
     echo "Docker-Compose is installed"
     docker-compose -v
