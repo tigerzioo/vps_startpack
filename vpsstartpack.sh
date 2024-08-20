@@ -358,10 +358,11 @@ aptlighttpd() {
         exit
       else
         echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
-        addphpinfo
       fi
+    else
+      addphpinfo
     fi
-}
+  }
 
 aptcertbot() {
   echo "****************************"
