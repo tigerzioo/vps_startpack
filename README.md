@@ -16,7 +16,7 @@ VPS初始设置一键脚本 （只支持 ubuntu 和 debian 系统）
 
 如果没有安装cURL，请先用下面命令安装。
 ```
-apt install curl
+apt install curl -y
 ```
 \
 运行一键脚本
