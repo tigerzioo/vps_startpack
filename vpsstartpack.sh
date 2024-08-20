@@ -12,11 +12,13 @@ isInstalled() {
     if command -v $1 &> /dev/null; then
       echo "++++++++++ $1 已安装 ...................."
       $1 -v
+      return 0
     else
       echo "++++++++++ $1 未安装 ...................."
+      return 1
     fi
-
 }
+
 
 updatesys() {
   echo "****************************"
@@ -93,10 +95,7 @@ aptdocker() {
   echo "*                          *"
   echo "****************************"
 
-  if command -v docker &> /dev/null; then
-    echo "++++++++++ Docker 已安装 ...................."
-    docker -v
-  else
+  if ! isInstalled "docker"; then
     echo "++++++++++ Docker 未安装 ...................."
     read -p "是否安装docker？(y/n/q) " dock
     if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
@@ -413,7 +412,7 @@ clear
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
   echo "*********************************************************************************"
-isInstalled（"docker"）
+
 updatesys
 set_sep
 apttools
