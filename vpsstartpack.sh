@@ -11,10 +11,10 @@ echo "++++++++++++++++++++++++++++"
 isInstalled() {
     if command -v $1 &> /dev/null; then
       echo "++++++++++ $1 已安装 ...................."
-      if [[ $2=="version" ]]; then
-        $1 --version
-      else
+      if [ -z "$2" ]; then
         $1 -v
+      else
+        $1 --version
       fi
       return 0
     else
