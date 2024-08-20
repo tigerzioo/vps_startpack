@@ -413,7 +413,7 @@ clear
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
   echo "*********************************************************************************"
-isInstalled（'docker'）
+isInstalled（"docker"）
 updatesys
 set_sep
 apttools
