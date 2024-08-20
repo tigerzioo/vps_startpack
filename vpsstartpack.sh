@@ -374,7 +374,7 @@ aptcertbot() {
   echo "*********安装CertBot********"
   echo "*                          *"
   echo "****************************"
-  if ! isInstalled "mariadb" "version"; then
+  if ! isInstalled "certbot" "version"; then
     read -p "是否安装CertBot？(y/n/q) " cbot
     if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
       apt install certbot -y
