@@ -374,13 +374,15 @@ aptcertbot() {
   echo "*********安装CertBot********"
   echo "*                          *"
   echo "****************************"
-  read -p "是否安装CertBot？(y/n/q) " cbot
-  if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
-    apt install certbot -y
-  elif [[ "$cbot" == "q" || "$cbot" == "Q" ]]; then
-    exit
-  else
-    echo "++++++++++ 跳过 Certbot 安装 ...................."
+  if ! isInstalled "mariadb" "version"; then
+    read -p "是否安装CertBot？(y/n/q) " cbot
+    if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
+      apt install certbot -y
+    elif [[ "$cbot" == "q" || "$cbot" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 Certbot 安装 ...................."
+    fi
   fi
 }
 
