@@ -352,6 +352,8 @@ aptlighttpd() {
       
         systemctl restart lighttpd
 
+        addphpinfo
+
       elif [[ "$httpd" == "q" || "$httpd" == "Q" ]]; then
         exit
       else
@@ -429,5 +431,3 @@ set_sep
 aptlighttpd
 set_sep
 aptcertbot
-set_sep
-addphpinfo
