@@ -265,13 +265,17 @@ adddockernet() {
   echo "*******创建Docker网络*******"
   echo "*                          *"
   echo "****************************"
-  read -p "是否创建Docker网络 (172.18.0.1/24)？(y/n/q) " docknet
-  if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
-    docker network create --subnet=172.18.0.0/24 dockernet
-  elif [[ "$docknet" == "q" || "$docknet" == "Q" ]]; then
-    exit
+  if docker network inspect docknet &> /dev/null; then
+    echo "++++++++++ Docker 网络 (172.18.0.1/24) 已创建 ...................."
   else
-    echo "++++++++++ 未创建 Docker 网络 ...................."
+    read -p "是否创建 Docker 网络 (172.18.0.1/24)？(y/n/q) " docknet
+    if [[ "$docknet" == "y" || "$docknet" == "Y" ]]; then
+      docker network create --subnet=172.18.0.0/24 dockernet
+    elif [[ "$docknet" == "q" || "$docknet" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 未创建 Docker 网络 ...................."
+    fi
   fi
 }
 
