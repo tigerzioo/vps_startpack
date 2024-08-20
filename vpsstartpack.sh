@@ -81,6 +81,19 @@ aptdocker() {
   echo "*安装docker和docker-compose*"
   echo "*                          *"
   echo "****************************"
+
+  if command -v docker &> /dev/null; then
+    echo "Docker is installed"
+    docker -v
+  else
+    echo "Docker is not installed"
+  fi
+  if command -v docker-compose &> /dev/null; then
+    echo "Docker-Compose is installed"
+    docker-compose -v
+  else
+    echo "Docker-Compose is not installed"
+  fi
   
   read -p "是否安装docker和docker-compose？(y/n/q) " dock
   if [[ "$dock" == "y" || "$dock" == "Y" ]]; then
