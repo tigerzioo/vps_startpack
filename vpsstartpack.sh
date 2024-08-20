@@ -11,7 +11,11 @@ echo "++++++++++++++++++++++++++++"
 isInstalled() {
     if command -v $1 &> /dev/null; then
       echo "++++++++++ $1 已安装 ...................."
-      $1 -v
+      if [[ $2=="version" ]]; then
+        $1 --version
+      else
+        $1 -v
+      fi
       return 0
     else
       echo "++++++++++ $1 未安装 ...................."
@@ -278,7 +282,7 @@ aptmariadb() {
   echo "*                          *"
   echo "****************************"
   
-  if ! isInstalled "mariadb"; then
+  if ! isInstalled "mariadb" "version"; then
     echo "++++++++++ MariaDB 未安装 ...................."
     read -p "是否安装MariaDB？(y/n/q) " maria
     if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
