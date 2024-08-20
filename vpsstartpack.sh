@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set_sep() {
+read -n 1 -s -r -p "按任意键继续..."
 echo "++++++++++++++++++++++++++++"
 echo ""
 echo ""
