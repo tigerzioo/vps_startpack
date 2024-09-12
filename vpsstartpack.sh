@@ -70,7 +70,8 @@ addswap() {
   if [ "$swap_total" -gt 0 ]; then
     echo "++++++++++ 虚拟内存已设置 ...................."
     free -b | awk 'NR==2{printf "物理内存：%.0f MB" , ($2/1024/1024)}';
-    free -m | awk 'NR==3{total=$2; printf "虚拟内存：%dMB",  total}'
+    echo ""
+    free -m | awk 'NR==3{total=$2; printf "虚拟内存：%d MB",  total}'
     echo " "
   else
     echo "++++++++++ 虚拟内存还未设置 ...................."
