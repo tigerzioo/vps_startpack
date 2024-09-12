@@ -78,7 +78,7 @@ addswap() {
     mem_total=$(free -b | awk 'NR==2{printf "%.0f" , ($2/1024/1024/1024-int($2/1024/1024/1024)>0)?int($2/1024/1024/1024)+1:int($2/1024/1024/1024)}')
     read -p "是否添加 $mem_total GB 虚拟内存？(y/n/q) " addswap
     if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
-      fallocate -l 1G /swapfile
+      fallocate -l ${mem_total}G /swapfile
       chmod 600 /swapfile
       mkswap /swapfile
       swapon /swapfile
