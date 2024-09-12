@@ -69,13 +69,14 @@ addswap() {
   # Check swap
   if [ "$swap_total" -gt 0 ]; then
     echo "++++++++++ 虚拟内存已设置 ...................."
-    free -b | awk 'NR==2{printf "物理内存：%.0f MB" , ($2/1024/1024)}';
-    echo ""
-    free -m | awk 'NR==3{total=$2; printf "虚拟内存：%d MB",  total}'
-    echo " "
+    # free -b | awk 'NR==2{printf "物理内存：%.0f MB" , ($2/1024/1024)}';
+    # echo ""
+    # free -m | awk 'NR==3{total=$2; printf "虚拟内存：%d MB",  total}'
+    # echo " "
   else
     echo "++++++++++ 虚拟内存还未设置 ...................."
-    read -p "是否添加虚拟内存？(y/n/q) " addswap
+    mem_total = $(free -b | awk 'NR==2{printf "物理内存：%.0f" , ($2/1024/1024/1024-int($2/1024/1024/1024)>0)?int($2/1024/1024/1024)+1:int($2/1024/1024/1024)}')
+    read -p "是否添加 $mem_total GB 虚拟内存？(y/n/q) " addswap
     if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
       fallocate -l 1G /swapfile
       chmod 600 /swapfile
