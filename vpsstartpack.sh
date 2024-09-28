@@ -245,7 +245,7 @@ addnonrootusr() {
   echo "*                          *"
   echo "****************************"
   echo "当前用户："
-  getent passwd {1000..60000} | cut -d: -f1
+  getent passwd {1000..2000} | cut -d: -f1
   read -p "是否创建非root用户？(y/n/q) " addu
   if [[ "$addu" == "y" || "$addu" == "Y" ]]; then
     echo "------------------------"
