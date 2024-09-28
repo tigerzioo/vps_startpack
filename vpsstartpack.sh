@@ -13,6 +13,8 @@ isInstalled() {
       echo "++++++++++ $1 已安装 ...................."
       if [ -z "$2" ]; then
         $1 -v
+      elif [[ "$2" == "version" ]]; then
+        $1 version
       else
         $1 --version
       fi
@@ -291,7 +293,7 @@ aptmariadb() {
   echo "*                          *"
   echo "****************************"
   
-  if ! isInstalled "mariadb" "version"; then
+  if ! isInstalled "mariadb" "--version"; then
     read -p "是否安装MariaDB？(y/n/q) " maria
     if [[ "$maria" == "y" || "$maria" == "Y" ]]; then
       PS3="请选择 MariaDB 的版本："
@@ -372,13 +374,32 @@ aptlighttpd() {
     fi
   }
 
+aptcaddy() {
+  echo "****************************"
+  echo "*                          *"
+  echo "*******安装 Caddy 反代******"
+  echo "*                          *"
+  echo "****************************"
+  if ! isInstalled "caddy" "version"; then
+    read -p "是否安装 Caddy ？(y/n/q) " caddy
+    if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
+      apt install caddy -y
+    elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 Caddy 安装 ...................."
+    fi
+  fi
+
+}
+
 aptcertbot() {
   echo "****************************"
   echo "*                          *"
   echo "*********安装CertBot********"
   echo "*                          *"
   echo "****************************"
-  if ! isInstalled "certbot" "version"; then
+  if ! isInstalled "certbot" "--version"; then
     read -p "是否安装CertBot？(y/n/q) " cbot
     if [[ "$cbot" == "y" || "$cbot" == "Y" ]]; then
       apt install certbot -y
@@ -449,6 +470,8 @@ set_sep
 aptmariadb
 set_sep
 aptlighttpd
+set_sep
+aptcaddy
 set_sep
 aptcertbot
 
