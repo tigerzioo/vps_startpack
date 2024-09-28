@@ -387,7 +387,7 @@ aptcaddy() {
         echo "***** Lighttpd 已安装，如果继续安装 Caddy，Lighttpd 的端口将被改成 1080，Caddy 将占用 80 端口 ******"
         read -p "是否继续安装 Caddy ？(y/n) " caddy80
         if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
-          sed -i "s/server.port = 80/server.port = 1080/g" /etc/lighttpd/lighttpd.conf
+          sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
           systemctl restart lighttpd
         else
           echo "++++++++++ 跳过 Caddy 安装 ...................."
