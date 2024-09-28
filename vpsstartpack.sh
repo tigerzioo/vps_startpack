@@ -389,11 +389,14 @@ aptcaddy() {
         if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
           sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
           systemctl restart lighttpd
+          apt install caddy -y
+          systemctl enable caddy
+          systemctl restart caddy
         else
           echo "++++++++++ 跳过 Caddy 安装 ...................."
         fi
       fi
-      # apt install caddy -y
+      
     elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
       exit
     else
