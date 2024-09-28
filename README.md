@@ -11,6 +11,7 @@ VPS初始设置一键脚本 （只支持 ubuntu 和 debian 系统）
 创建docker网络\
 安装MariaDB数据库\
 安装Lighttpd和PHP\
+安装Caddy反向代理
 安装CertBot\
 创建PHP测试网页
 
