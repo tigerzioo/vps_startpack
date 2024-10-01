@@ -337,9 +337,14 @@ aptlighttpd() {
     read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
     if isInstalled "caddy" "version"; then
       read -p "Caddy 已经安装，如果需要安装 Lighttpd，Lighttpd 的端口将被改成 1080，是否继续安装？(y/n) " httpd1080
+      if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
+        echo "++++++++++ 继续安装 Lighttpd，端口改为 1080 ...................."
+      else
+        echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
+        return 0
+      fi
     fi
-    echo "$httpd1080"
-    exit
+
     if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
       if ! isInstalled "lighttpd"; then
         apt install lighttpd -y
@@ -364,7 +369,10 @@ aptlighttpd() {
       echo "    \"bin-path\" => \"/usr/bin/php-cgi\"" >> /etc/lighttpd/lighttpd.conf
       echo "  ))" >> /etc/lighttpd/lighttpd.conf
       echo ")" >> /etc/lighttpd/lighttpd.conf
-     
+
+      if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
+        sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
+      fi
       systemctl restart lighttpd
 
       addphpinfo
