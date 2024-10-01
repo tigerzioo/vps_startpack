@@ -335,6 +335,11 @@ aptlighttpd() {
   if ! isInstalled "lighttpd" || ! isInstalled "php"; then
   
     read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
+    if isInstalled "caddy" "version"; then
+      read -p "Caddy 已经安装，如果需要安装 Lighttpd，Lighttpd 的端口将被改成 1080，是否继续安装？(y/n) " httpd1080
+    fi
+    echo "$httpd1080"
+    exit
     if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
       if ! isInstalled "lighttpd"; then
         apt install lighttpd -y
