@@ -386,7 +386,7 @@ aptcaddy() {
       if isInstalled "lighttpd"; then
         echo "***** Lighttpd 已安装，如果继续安装 Caddy，Lighttpd 的端口将被改成 1080，Caddy 将占用 80 端口 ******"
         read -p "是否继续安装 Caddy ？(y/n) " caddy80
-        if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
+        if [[ "$caddy80" == "y" || "$caddy80" == "Y" ]]; then
           sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
           systemctl restart lighttpd
           # 安装依赖
@@ -402,7 +402,18 @@ aptcaddy() {
         else
           echo "++++++++++ 跳过 Caddy 安装 ...................."
         fi
-      fi
+      else
+        # 安装依赖
+        apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+        # 添加 Caddy GPG key
+        curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+        # 添加 Caddy repository to sources list
+        curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+        apt update
+        apt install caddy -y
+        systemctl enable caddy
+        systemctl restart caddy
+       fi
       
     elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
       exit
