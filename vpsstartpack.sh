@@ -527,6 +527,11 @@ do
   then
     echo "Caddy"
     break
+  elif read -t 0; then
+    if [[ $(</dev/stdin) == "" ]]; then
+      echo "Enter key was pressed"
+      break
+    fi
   else
     break
   fi
