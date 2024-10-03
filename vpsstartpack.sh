@@ -522,9 +522,14 @@ do
   if [[ "$REPLY" == 1 ]]
   then
     echo "Lighttpd"
+    break
   elif [[ "$REPLY" == 2 ]]
   then
     echo "Caddy"
+    break
+  elif [[ "$REPLY" == "" ]]
+  then
+    break
   else
     break
   fi
