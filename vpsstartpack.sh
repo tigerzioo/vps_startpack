@@ -335,15 +335,15 @@ aptlighttpd() {
   if ! isInstalled "lighttpd" || ! isInstalled "php"; then
   
     read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
-    if isInstalled "caddy" "version"; then
-      read -p "Caddy 已经安装，如果需要安装 Lighttpd，Lighttpd 的端口将被改成 1080，是否继续安装？(y/n) " httpd1080
-      if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
-        echo "++++++++++ 继续安装 Lighttpd，端口改为 1080 ...................."
-      else
-        echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
-        return 0
-      fi
-    fi
+    # if isInstalled "caddy" "version"; then
+    #  read -p "Caddy 已经安装，如果需要安装 Lighttpd，Lighttpd 的端口将被改成 1080，是否继续安装？(y/n) " httpd1080
+    #  if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
+    #    echo "++++++++++ 继续安装 Lighttpd，端口改为 1080 ...................."
+    #  else
+    #    echo "++++++++++ 跳过 Lighttpd 和 PHP 安装 ...................."
+    #    return 0
+    #  fi
+    # fi
 
     if [[ "$httpd" == "y" || "$httpd" == "Y" ]]; then
       if ! isInstalled "lighttpd"; then
@@ -370,9 +370,9 @@ aptlighttpd() {
       echo "  ))" >> /etc/lighttpd/lighttpd.conf
       echo ")" >> /etc/lighttpd/lighttpd.conf
 
-      if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
-        sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
-      fi
+      # if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
+      #  sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
+      # fi
       systemctl restart lighttpd
 
       addphpinfo
@@ -396,26 +396,26 @@ aptcaddy() {
   if ! isInstalled "caddy" "version"; then
     read -p "是否安装 Caddy ？(y/n/q) " caddy
     if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
-      if isInstalled "lighttpd"; then
-        echo "***** Lighttpd 已安装，如果继续安装 Caddy，Lighttpd 的端口将被改成 1080，Caddy 将占用 80 端口 ******"
-        read -p "是否继续安装 Caddy ？(y/n) " caddy80
-        if [[ "$caddy80" == "y" || "$caddy80" == "Y" ]]; then
-          sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
-          systemctl restart lighttpd
-          # 安装依赖
-          apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
-          # 添加 Caddy GPG key
-          curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-          # 添加 Caddy repository to sources list
-          curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
-          apt update
-          apt install caddy -y
-          systemctl enable caddy
-          systemctl restart caddy
-        else
-          echo "++++++++++ 跳过 Caddy 安装 ...................."
-        fi
-      else
+      # if isInstalled "lighttpd"; then
+      #  echo "***** Lighttpd 已安装，如果继续安装 Caddy，Lighttpd 的端口将被改成 1080，Caddy 将占用 80 端口 ******"
+      #  read -p "是否继续安装 Caddy ？(y/n) " caddy80
+      #  if [[ "$caddy80" == "y" || "$caddy80" == "Y" ]]; then
+      #    sed -i "s/= 80/= 1080/g" /etc/lighttpd/lighttpd.conf
+      #    systemctl restart lighttpd
+      #    # 安装依赖
+      #    apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+      #    # 添加 Caddy GPG key
+      #    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+      #    # 添加 Caddy repository to sources list
+      #    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+      #    apt update
+      #    apt install caddy -y
+      #    systemctl enable caddy
+      #    systemctl restart caddy
+      #  else
+      #    echo "++++++++++ 跳过 Caddy 安装 ...................."
+      #  fi
+      # else
         # 安装依赖
         apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
         # 添加 Caddy GPG key
@@ -426,7 +426,7 @@ aptcaddy() {
         apt install caddy -y
         systemctl enable caddy
         systemctl restart caddy
-       fi
+      # fi
       
     elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
       exit
