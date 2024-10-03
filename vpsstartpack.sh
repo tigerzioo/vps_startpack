@@ -487,6 +487,32 @@ addphpinfo() {
   fi
 }
 
+aptcaddyorlighttp() {
+    PS3="请选择要安装的 Web 服务器（输入 0 跳过安装）："
+    select choice in "Lighttpd 和 PHP" "Caddy 和 PHP"  
+    do
+      echo "+++++++++++++++++++"
+      echo " "
+    
+      if [[ -z $choice ]]; then
+        echo "++++++++++ 未安装 Web 服务器和 PHP ...................."
+        break
+      fi
+      
+      if [[ "$REPLY" == 1 ]]
+      then
+        echo "Lighttpd"
+        break
+      elif [[ "$REPLY" == 2 ]]
+      then
+        echo "Caddy"
+        break
+      else
+        break
+      fi
+    done
+}
+
 clear
   echo "*********************************************************************************"
   echo "*                                                                               *"
@@ -513,28 +539,7 @@ adddockernet
 set_sep
 aptmariadb
 set_sep
-PS3="请选择要安装的 Web 服务器（输入 0 跳过安装）："
-select ver in "Lighttpd 和 PHP" "Caddy 和 PHP"  
-do
-  echo "+++++++++++++++++++"
-  echo " "
-
-  if [[ "$REPLY" != 1 && "$REPLY" != 2 ]]
-  then 
-    echo "++++++++++ 请重新选择 ...................."
-    break
-  elif [[ "$REPLY" == 1 ]]
-  then
-    echo "Lighttpd"
-    break
-  elif [[ "$REPLY" == 2 ]]
-  then
-    echo "Caddy"
-    break
-  else
-    break
-  fi
-done
+aptcaddyorlighttp
 # aptlighttpd
 # set_sep
 # aptcaddy
