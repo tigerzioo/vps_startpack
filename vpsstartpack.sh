@@ -498,10 +498,12 @@ aptcaddyorlighttp() {
     
     case $choice in
         1)
-            echo "Lighttpd"
+            echo "++++++++++ 安装 Lighttpd 和 PHP ...................."
+            aptlighttpd
             ;;
         2)
-            echo "Caddy"
+            echo "++++++++++ 安装 Caddy 和 PHP ...................."
+            aptcaddy
             ;;
         0)  
             echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
