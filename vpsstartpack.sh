@@ -488,25 +488,23 @@ addphpinfo() {
 }
 
 aptcaddyorlighttp() {
-    PS3="请选择要安装的 Web 服务器（直接回车跳过安装）："
-    select choice in "Lighttpd 和 PHP" "Caddy 和 PHP"  
-    do
-      echo "+++++++++++++++++++"
-      echo " "
+    echo "请选择要安装的 Web 服务器（直接回车跳过安装）："
+    echo "1) "Lighttpd 和 PHP"
+    echo "2) Caddy 和 PHP"
     
-      if [[ "$REPLY" == 1 ]]
-      then
-        echo "Lighttpd"
-        break
-      elif [[ "$REPLY" == 2 ]]
-      then
-        echo "Caddy"
-        break
-      else
-        break
-      fi
-      break
-    done
+    read -p "Enter your choice: " choice
+    
+    case $choice in
+        1)
+            echo "Lighttpd"
+            ;;
+        2)
+            echo "Caddy"
+            ;;
+        *)
+            echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
+            ;;
+    esac
 }
 
 clear
