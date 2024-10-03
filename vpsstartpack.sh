@@ -513,9 +513,25 @@ adddockernet
 set_sep
 aptmariadb
 set_sep
-aptlighttpd
-set_sep
-aptcaddy
+PS3="请选择要安装的 Web 服务器（回车跳过安装）："
+select ver in "Lighttpd 和 PHP" "Caddy 和 PHP"  
+do
+  echo "+++++++++++++++++++"
+  echo " "
+
+  if [[ "$REPLY" == 1 ]]
+  then
+    echo "Lighttpd"
+  elif [[ "$REPLY" == 2 ]]
+  then
+    echo "Caddy"
+  else
+    break
+  fi
+done
+# aptlighttpd
+# set_sep
+# aptcaddy
 set_sep
 aptcertbot
 
