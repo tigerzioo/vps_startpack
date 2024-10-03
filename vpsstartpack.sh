@@ -488,17 +488,12 @@ addphpinfo() {
 }
 
 aptcaddyorlighttp() {
-    PS3="请选择要安装的 Web 服务器（输入 0 跳过安装）："
+    PS3="请选择要安装的 Web 服务器（直接回车跳过安装）："
     select choice in "Lighttpd 和 PHP" "Caddy 和 PHP"  
     do
       echo "+++++++++++++++++++"
       echo " "
     
-      if [[ -z $choice ]]; then
-        echo "++++++++++ 未安装 Web 服务器和 PHP ...................."
-        break
-      fi
-      
       if [[ "$REPLY" == 1 ]]
       then
         echo "Lighttpd"
@@ -510,6 +505,7 @@ aptcaddyorlighttp() {
       else
         break
       fi
+      break
     done
 }
 
