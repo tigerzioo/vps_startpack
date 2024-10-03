@@ -488,6 +488,7 @@ addphpinfo() {
 }
 
 aptcaddyorlighttp() {
+  if ! isInstalled "caddy" "version" && ! isInstalled "lighttpd"; then
     echo "Web 服务器"
     echo "1) Lighttpd 和 PHP"
     echo "2) Caddy 和 PHP"
@@ -505,6 +506,7 @@ aptcaddyorlighttp() {
             echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
             ;;
     esac
+  fi
 }
 
 clear
