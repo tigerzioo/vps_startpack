@@ -488,11 +488,11 @@ addphpinfo() {
 }
 
 aptcaddyorlighttp() {
-    echo "请选择要安装的 Web 服务器（直接回车跳过安装）："
-    echo "1) "Lighttpd 和 PHP"
+    echo "Web 服务器"
+    echo "1) Lighttpd 和 PHP"
     echo "2) Caddy 和 PHP"
     
-    read -p "Enter your choice: " choice
+    read -p "请选择要安装的 Web 服务器（直接回车跳过安装）：" choice
     
     case $choice in
         1)
