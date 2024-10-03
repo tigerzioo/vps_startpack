@@ -488,10 +488,11 @@ addphpinfo() {
 }
 
 aptcaddyorlighttp() {
-  if ! isInstalled "caddy" "version" && ! isInstalled "lighttpd"; then
+  if ! isInstalled "caddy" "version" && ! isInstalled "lighttpd" && ! isInstalled "php"; then
     echo "Web 服务器"
     echo "1) Lighttpd 和 PHP"
     echo "2) Caddy 和 PHP"
+    echo "0) 跳过安装 Web 服务器"
     
     read -p "请选择要安装的 Web 服务器（直接回车跳过安装）：" choice
     
@@ -501,6 +502,9 @@ aptcaddyorlighttp() {
             ;;
         2)
             echo "Caddy"
+            ;;
+        0)  
+            echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
             ;;
         *)
             echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
