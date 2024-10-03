@@ -519,7 +519,11 @@ do
   echo "+++++++++++++++++++"
   echo " "
 
-  if [[ "$REPLY" == 1 ]]
+  if [[ "$REPLY" != 1 && "$REPLY" != 2 ]]
+  then 
+    echo "++++++++++ 请重新选择 ...................."
+    break
+  elif [[ "$REPLY" == 1 ]]
   then
     echo "Lighttpd"
     break
@@ -527,11 +531,6 @@ do
   then
     echo "Caddy"
     break
-  elif read -t 0; then
-    if [[ $(</dev/stdin) == "" ]]; then
-      echo "Enter key was pressed"
-      break
-    fi
   else
     break
   fi
