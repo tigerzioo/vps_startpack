@@ -390,7 +390,7 @@ aptlighttpd() {
 aptcaddy() {
   echo "****************************"
   echo "*                          *"
-  echo "*******安装 Caddy 反代******"
+  echo "*******安装 Caddy 和 PHP******"
   echo "*                          *"
   echo "****************************"
   if ! isInstalled "caddy" "version"; then
@@ -404,7 +404,35 @@ aptcaddy() {
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
       apt update
       apt install caddy -y
-      sudo apt install php php-fpm -y
+      apt install php php-fpm php-mysqli php-gd -y
+      systemctl enable caddy
+      systemctl restart caddy
+    
+    elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 Caddy 安装 ...................."
+    fi
+  fi
+}
+
+aptcaddyonly() {
+  echo "****************************"
+  echo "*                          *"
+  echo "******** 安装 Caddy *******"
+  echo "*                          *"
+  echo "****************************"
+  if ! isInstalled "caddy" "version"; then
+    read -p "是否安装 Caddy ？(y/n/q) " caddy
+    if [[ "$caddy" == "y" || "$caddy" == "Y" ]]; then
+      # 安装依赖
+      apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+      # 添加 Caddy GPG key
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+      # 添加 Caddy repository to sources list
+      curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+      apt update
+      apt install caddy -y
       systemctl enable caddy
       systemctl restart caddy
     
@@ -472,6 +500,7 @@ aptcaddyorlighttp() {
     echo "Web 服务器"
     echo "1) Lighttpd 和 PHP"
     echo "2) Caddy 和 PHP"
+    echo "3) 仅安装 Caddy"
     echo "0) 跳过安装 Web 服务器"
     
     read -p "请选择要安装的 Web 服务器（直接回车跳过安装）：" choice
@@ -484,6 +513,10 @@ aptcaddyorlighttp() {
         2)
             echo "++++++++++ 安装 Caddy 和 PHP ...................."
             aptcaddy
+            ;;
+        3)
+            echo "++++++++++ 安装 Caddy ...................."
+            aptcaddyonly
             ;;
         0)  
             echo "++++++++++ 跳过 Web 服务器和 PHP 安装 ...................."
@@ -522,9 +555,6 @@ set_sep
 aptmariadb
 set_sep
 aptcaddyorlighttp
-# aptlighttpd
-# set_sep
-# aptcaddy
 set_sep
 aptcertbot
 
