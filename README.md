@@ -3,17 +3,18 @@ VPS初始设置一键脚本 （只支持 ubuntu 和 debian 系统）
 功能：\
 升级更新系统软件包\
 安装常用工具\
-添加Swap虚拟内存\
-安装docker和docker-compose\
+添加 Swap 虚拟内存\
+安装 docker 和 docker-compose\
 更改系统时区\
 更改主机名\
-创建非root用户\
-创建docker网络\
-安装MariaDB数据库\
-安装Lighttpd和PHP\
-安装Caddy反向代理\
-安装CertBot\
-创建PHP测试网页
+创建 非root 用户\
+创建 docker 网络\
+安装 MariaDB 数据库\
+安装 Adminer 数据库管理工具\
+安装 Lighttpd 和 PHP\
+安装 Caddy 和 PHP\
+安装 CertBot\
+创建 PHP 测试网页
 
 如果没有安装cURL，请先用下面命令安装。
 ```
