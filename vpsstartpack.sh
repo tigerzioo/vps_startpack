@@ -325,6 +325,23 @@ aptmariadb() {
   fi
 }
 
+adddockeradminer() {
+  if docker ps -a --format '{{.Names}}' | grep -q '^adminer$'; then
+    echo "++++++++++ Adminer 已安装 ...................."
+  else
+    echo "++++++++++ Adminer 未安装 ...................."
+  
+    read -p "是否安装 Adminer docker ？(y/n/q) " adminer
+    if [[ "$adminer" == "y" || "$adminer" == "Y" ]]; then
+      docker run -d --name adminer --restart=always -p 8011:8080 --net dockernet -e ADMINER_DEFAULT_SERVER=mysql adminer
+    elif [[ "$docknet" == "q" || "$docknet" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 Adminer 安装 ...................."
+    fi
+  fi
+}
+
 aptlighttpd() {
   echo "****************************"
   echo "*                          *"
@@ -553,6 +570,8 @@ set_sep
 adddockernet
 set_sep
 aptmariadb
+set_sep
+adddockeradminer
 set_sep
 aptcaddyorlighttp
 set_sep
