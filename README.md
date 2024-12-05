@@ -13,6 +13,7 @@ VPS初始设置一键脚本 （只支持 ubuntu 和 debian 系统）
 安装 Adminer 数据库管理工具\
 安装 Lighttpd 和 PHP\
 安装 Caddy 和 PHP\
+安装 Adminer\
 安装 CertBot\
 创建 PHP 测试网页
 
