@@ -421,7 +421,7 @@ aptcaddy() {
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
       apt update
       apt install caddy -y
-      apt install php php-fpm php-mysqli php-gd php-xmlreader -y
+      apt install php php-fpm php-mysqli php-gd php-xml -y
       systemctl enable caddy
       systemctl restart caddy
     
