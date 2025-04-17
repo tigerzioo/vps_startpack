@@ -553,33 +553,71 @@ clear
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
   echo "*********************************************************************************"
 
-updatesys
-set_sep
-apttools
-set_sep
-addswap
-set_sep
-aptdocker
-set_sep
-settzone
-set_sep
-sethost
-set_sep
-addnonrootusr
-set_sep
-adddockernet
-set_sep
-aptmariadb
-set_sep
-adddockeradminer
-set_sep
-aptcaddyorlighttp
-set_sep
-aptcertbot
+# Main menu function
+main_menu() {
+    while true; do
+        clear
+        echo "===== Main Menu ====="
+        echo "1 - 升级更新系统软件包"
+        echo "2 - 安装常用工具 sudo curl apt"
+        echo "3 - 设置 swap 虚拟内存"
+        echo "4 - 安装 docker 和 docker-compose"
+        echo "5 - 更改时区"
+        echo "6 - 更改主机名"
+        echo "7 - 创建 非root 用户"
+        echo "8 - 创建 Docker 网络"
+        echo "9 - 安装 MariaDB 数据库"
+        echo "7 - 安装 Adminer"
+        echo "8 - 安装 Lighttpd 和 PHP"
+        echo "9 - 安装 Caddy 和 PHP"
+        echo "10 - 安装 Caddy"
+        echo "10 - 安装 CertBot"
+        echo "10 - 创建 PHP 测试网页"
+        echo "0 - Exit"
+        echo -n "Enter selection: "
+        read selection
+        case $selection in
+            1) updatesys ;;
+            2) apttools ;;
+            3) addswap ;;
+            0) echo "Goodbye!"; exit 0 ;;
+            *) echo "Invalid selection"; press_enter ;;
+        esac
+    done
+}
 
-echo "*********************************************************************************"
-echo "*                                                                               *"
-echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
-echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-echo "*********************************************************************************"
-echo ""
+# Start the script by calling the main menu
+main_menu
+
+order_run() {
+    updatesys
+    set_sep
+    apttools
+    set_sep
+    addswap
+    set_sep
+    aptdocker
+    set_sep
+    settzone
+    set_sep
+    sethost
+    set_sep
+    addnonrootusr
+    set_sep
+    adddockernet
+    set_sep
+    aptmariadb
+    set_sep
+    adddockeradminer
+    set_sep
+    aptcaddyorlighttp
+    set_sep
+    aptcertbot
+    
+    echo "*********************************************************************************"
+    echo "*                                                                               *"
+    echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
+    echo "*            https://github.com/tigerzioo/vps_startpack                         *"
+    echo "*********************************************************************************"
+    echo ""
+}
