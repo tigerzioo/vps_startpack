@@ -8,7 +8,7 @@ echo ""
 echo "++++++++++++++++++++++++++++"
 }
 
-go_memu() {
+go_menu() {
 read -n 1 -s -r -p "按任意键反回主菜单..."
 echo "++++++++++++++++++++++++++++"
 echo ""
@@ -561,7 +561,18 @@ apttools_run() {
   apttools
   go_menu
 }
-
+addswap_run() {
+  addswap
+  go_menu
+}
+aptdocker_run() {
+  aptdocker
+  go_menu
+}
+settzone_run() {
+  settzone
+  go_menu
+}
 
 order_run() {
 clear
@@ -639,7 +650,17 @@ clear
             2) apttools_run ;;
             3) addswap_run ;;
             4) aptdocker_run ;;
-            5) go_memu ;;
+            5) settzone_run ;;
+            6)  ;;
+            7)  ;;
+            8)  ;;
+            9)  ;;
+            10)  ;;
+            11)  ;;
+            12)  ;;
+            13)  ;;
+            14)  ;;
+            15)  ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
@@ -648,5 +669,4 @@ clear
 }
 
 # Start the script by calling the main menu
-# main_menu
-apttools_run
+main_menu
