@@ -648,4 +648,5 @@ clear
 }
 
 # Start the script by calling the main menu
-main_menu
+# main_menu
+apttools_run
