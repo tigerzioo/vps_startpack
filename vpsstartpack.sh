@@ -554,7 +554,7 @@ aptcaddyorlighttp() {
 }
 
 updatesys_run() {
-  updatesys_run
+  updatesys
   go_menu
 }
 apttools_run() {
