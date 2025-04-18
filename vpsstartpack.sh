@@ -553,6 +553,17 @@ aptcaddyorlighttp() {
   fi
 }
 
+updatesys_run() {
+  updatesys_run
+  go_menu
+}
+apttools_run() {
+  apttools
+  go_menu
+}
+
+
+order_run() {
 clear
   echo "*********************************************************************************"
   echo "*                                                                               *"
@@ -560,6 +571,37 @@ clear
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
   echo "*********************************************************************************"
+    updatesys
+    set_sep
+    apttools
+    set_sep
+    addswap
+    set_sep
+    aptdocker
+    set_sep
+    settzone
+    set_sep
+    sethost
+    set_sep
+    addnonrootusr
+    set_sep
+    adddockernet
+    set_sep
+    aptmariadb
+    set_sep
+    adddockeradminer
+    set_sep
+    aptcaddyorlighttp
+    set_sep
+    aptcertbot
+    
+    echo "*********************************************************************************"
+    echo "*                                                                               *"
+    echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
+    echo "*            https://github.com/tigerzioo/vps_startpack                         *"
+    echo "*********************************************************************************"
+    echo ""
+}
 
 # Main menu function
 main_menu() {
@@ -606,52 +648,3 @@ clear
 
 # Start the script by calling the main menu
 main_menu
-
-updatesys_run() {
-  updatesys_run
-  go_menu
-}
-apttools_run() {
-  apttools
-  go_menu
-}
-
-order_run() {
-clear
-  echo "*********************************************************************************"
-  echo "*                                                                               *"
-  echo "*************************开始运行VPS初始设置一键脚本*****************************"
-  echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-  echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
-  echo "*********************************************************************************"
-    updatesys
-    set_sep
-    apttools
-    set_sep
-    addswap
-    set_sep
-    aptdocker
-    set_sep
-    settzone
-    set_sep
-    sethost
-    set_sep
-    addnonrootusr
-    set_sep
-    adddockernet
-    set_sep
-    aptmariadb
-    set_sep
-    adddockeradminer
-    set_sep
-    aptcaddyorlighttp
-    set_sep
-    aptcertbot
-    
-    echo "*********************************************************************************"
-    echo "*                                                                               *"
-    echo "*********************脚本运行完成，如果需要还可以重新执行脚本********************"
-    echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-    echo "*********************************************************************************"
-    echo ""
-}
