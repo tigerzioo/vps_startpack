@@ -639,6 +639,7 @@ clear
             2) apttools_run ;;
             3) addswap_run ;;
             4) aptdocker_run ;;
+            5) go_memu ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
