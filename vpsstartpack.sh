@@ -567,12 +567,13 @@ main_menu() {
         echo "7 - 创建 非root 用户"
         echo "8 - 创建 Docker 网络"
         echo "9 - 安装 MariaDB 数据库"
-        echo "7 - 安装 Adminer"
-        echo "8 - 安装 Lighttpd 和 PHP"
-        echo "9 - 安装 Caddy 和 PHP"
-        echo "10 - 安装 Caddy"
-        echo "10 - 安装 CertBot"
-        echo "10 - 创建 PHP 测试网页"
+        echo "10 - 安装 Adminer"
+        echo "11 - 安装 Lighttpd 和 PHP"
+        echo "12 - 安装 Caddy 和 PHP"
+        echo "13 - 安装 Caddy"
+        echo "14 - 安装 CertBot"
+        echo "15 - 创建 PHP 测试网页"
+        echo "99 - 顺序运行全部"
         echo "0 - Exit"
         echo -n "Enter selection: "
         read selection
@@ -580,6 +581,7 @@ main_menu() {
             1) updatesys ;;
             2) apttools ;;
             3) addswap ;;
+            99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
         esac
