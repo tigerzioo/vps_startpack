@@ -8,6 +8,14 @@ echo ""
 echo "++++++++++++++++++++++++++++"
 }
 
+go_main() {
+read -n 1 -s -r -p "按任意键反回主菜单..."
+echo "++++++++++++++++++++++++++++"
+echo ""
+echo ""
+echo "++++++++++++++++++++++++++++"
+}
+
 isInstalled() {
     if command -v $1 &> /dev/null; then
       echo "++++++++++ $1 已安装 ...................."
@@ -581,6 +589,7 @@ main_menu() {
             1) updatesys ;;
             2) apttools ;;
             3) addswap ;;
+            4) aptdocker ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
@@ -590,6 +599,11 @@ main_menu() {
 
 # Start the script by calling the main menu
 main_menu
+
+updatesys_run() {
+  updatesys_run
+  go_menu
+}
 
 order_run() {
     updatesys
