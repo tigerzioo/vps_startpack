@@ -573,6 +573,31 @@ settzone_run() {
   settzone
   go_menu
 }
+sethost_run() {
+  sethost
+  go_menu
+}
+addnonrootusr_run() {
+  addnonrootusr
+  go_menu
+}
+adddockernet_run() {
+  adddockernet
+  go_menu
+}
+aptmariadb_run() {
+  aptmariadb
+  go_menu
+}
+adddockeradminer_run() {
+  adddockeradminer
+  go_menu
+}
+
+
+
+
+
 
 order_run() {
 clear
@@ -580,7 +605,7 @@ clear
   echo "*                                                                               *"
   echo "*************************开始运行VPS初始设置一键脚本*****************************"
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-  echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
+  echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                      *"
   echo "*********************************************************************************"
     updatesys
     set_sep
@@ -623,7 +648,7 @@ clear
   echo "*                                                                               *"
   echo "*************************开始运行VPS初始设置一键脚本*****************************"
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
-  echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                             *"
+  echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                      *"
   echo "*********************************************************************************"
         echo "===== 主菜单 ====="
         echo "1 - 升级更新系统软件包"
@@ -651,11 +676,11 @@ clear
             3) addswap_run ;;
             4) aptdocker_run ;;
             5) settzone_run ;;
-            6)  ;;
-            7)  ;;
-            8)  ;;
-            9)  ;;
-            10)  ;;
+            6) sethost_run ;;
+            7) addnonrootusr_run ;;
+            8) adddockernet_run ;;
+            9) aptmariadb_run ;;
+            10) adddockeradminer_run ;;
             11)  ;;
             12)  ;;
             13)  ;;
