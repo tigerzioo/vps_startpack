@@ -593,10 +593,10 @@ clear
         echo -n "Enter selection: "
         read selection
         case $selection in
-            1) updatesys ;;
-            2) apttools ;;
-            3) addswap ;;
-            4) aptdocker ;;
+            1) updatesys_run ;;
+            2) apttools_run ;;
+            3) addswap_run ;;
+            4) aptdocker_run ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
@@ -609,6 +609,10 @@ main_menu
 
 updatesys_run() {
   updatesys_run
+  go_menu
+}
+apttools_run() {
+  apttools
   go_menu
 }
 
