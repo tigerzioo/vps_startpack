@@ -593,9 +593,26 @@ adddockeradminer_run() {
   adddockeradminer
   go_menu
 }
-
-
-
+aptlighttpd_run() {
+  aptlighttpd
+  go_menu
+}
+aptcaddy_run() {
+  aptcaddy
+  go_menu
+}
+aptcaddyonly_run() {
+  aptcaddyonly
+  go_menu
+}
+aptcertbot_run() {
+  aptcertbot
+  go_menu
+}
+addphpinfo_run() {
+  addphpinfo
+  go_menu
+}
 
 
 
@@ -681,11 +698,11 @@ clear
             8) adddockernet_run ;;
             9) aptmariadb_run ;;
             10) adddockeradminer_run ;;
-            11)  ;;
-            12)  ;;
-            13)  ;;
-            14)  ;;
-            15)  ;;
+            11) aptlighttpd_run ;;
+            12) aptcaddy_run ;;
+            13) aptcaddyonly_run ;;
+            14) aptcertbot_run ;;
+            15) addphpinfo_run ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
