@@ -667,8 +667,8 @@ clear
         echo "14 - 安装 CertBot"
         echo "15 - 创建 PHP 测试网页"
         echo "99 - 顺序运行全部"
-        echo "0 - Exit"
-        echo -n "Enter selection: "
+        echo "0 - 退出"
+        echo -n "请选择: "
         read selection
         case $selection in
             1) updatesys_run ;;
