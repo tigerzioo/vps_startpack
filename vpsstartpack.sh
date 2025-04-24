@@ -83,6 +83,21 @@ addswap() {
     # echo ""
     # free -m | awk 'NR==3{total=$2; printf "虚拟内存：%d MB",  total}'
     # echo " "
+    read -p "是否修改虚拟内存配置？(y/n/q) " changeswap
+    if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
+      read -p "请输入要配置的虚拟内存大小 (GB) " swapsize
+      swapoff /swapfile
+      rm /swapfile
+      fallocate -l ${swapsize}G /swapfile
+      chmod 600 /swapfile
+      mkswap /swapfile
+      swapon /swapfile
+      free -h
+    elif [[ "$addswap" == "q" || "$addswap" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过虚拟内存设置 ...................."
+    fi
   else
     echo "++++++++++ 虚拟内存还未设置 ...................."
     mem_total=$(free -b | awk 'NR==2{printf "%.0f" , ($2/1024/1024/1024-int($2/1024/1024/1024)>0)?int($2/1024/1024/1024)+1:int($2/1024/1024/1024)}')
