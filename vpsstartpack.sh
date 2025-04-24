@@ -84,7 +84,7 @@ addswap() {
     # free -m | awk 'NR==3{total=$2; printf "虚拟内存：%d MB",  total}'
     # echo " "
     read -p "是否修改虚拟内存配置？(y/n/q) " changeswap
-    if [[ "$addswap" == "y" || "$addswap" == "Y" ]]; then
+    if [[ "$changeswap" == "y" || "$changeswap" == "Y" ]]; then
       read -p "请输入要配置的虚拟内存大小 (GB) " swapsize
       swapoff /swapfile
       rm /swapfile
@@ -93,7 +93,7 @@ addswap() {
       mkswap /swapfile
       swapon /swapfile
       free -h
-    elif [[ "$addswap" == "q" || "$addswap" == "Q" ]]; then
+    elif [[ "$changeswap" == "q" || "$changeswap" == "Q" ]]; then
       exit
     else
       echo "++++++++++ 跳过虚拟内存设置 ...................."
