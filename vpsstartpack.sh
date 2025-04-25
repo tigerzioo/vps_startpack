@@ -697,7 +697,6 @@ clear
         echo "12 - 安装 Caddy 和 PHP"
         echo "13 - 安装 Caddy"
         echo "14 - 安装 CertBot"
-        echo "15 - 创建 PHP 测试网页"
         echo "99 - 顺序运行全部"
         echo "0 - 退出"
         echo -n "请选择: "
@@ -717,7 +716,6 @@ clear
             12) aptcaddy_run ;;
             13) aptcaddyonly_run ;;
             14) aptcertbot_run ;;
-            15) addphpinfo_run ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
