@@ -456,6 +456,26 @@ aptcaddy() {
   fi
 }
 
+aptphp() {
+  echo "****************************"
+  echo "*                          *"
+  echo "*******安装 PHP******"
+  echo "*                          *"
+  echo "****************************"
+  if ! isInstalled "php"; then
+    read -p "是否安装 php ？(y/n/q) " php
+    if [[ "$php" == "y" || "$php" == "Y" ]]; then
+      apt update
+      apt install php8.2 php8.2-cli php8.2-common php8.2-fpm php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath -y
+    
+    elif [[ "$php" == "q" || "$php" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 php 安装 ...................."
+    fi
+  fi
+}
+
 aptcaddyonly() {
   echo "****************************"
   echo "*                          *"
@@ -616,6 +636,10 @@ aptcaddy_run() {
   aptcaddy
   go_menu
 }
+aptphp_run() {
+  aptphp
+  go_menu
+}
 aptcaddyonly_run() {
   aptcaddyonly
   go_menu
@@ -695,8 +719,9 @@ clear
         echo "10 - 安装 Adminer"
         echo "11 - 安装 Lighttpd 和 PHP"
         echo "12 - 安装 Caddy 和 PHP"
-        echo "13 - 安装 Caddy"
-        echo "14 - 安装 CertBot"
+        echo "13 - 安装 PHP 8.2"
+        echo "14 - 安装 Caddy"
+        echo "15 - 安装 CertBot"
         echo "99 - 顺序运行全部"
         echo "0 - 退出"
         echo -n "请选择: "
@@ -714,8 +739,9 @@ clear
             10) adddockeradminer_run ;;
             11) aptlighttpd_run ;;
             12) aptcaddy_run ;;
-            13) aptcaddyonly_run ;;
-            14) aptcertbot_run ;;
+            13) aptphp_run ;;
+            14) aptcaddyonly_run ;;
+            15) aptcertbot_run ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
