@@ -374,7 +374,7 @@ aptlighttpd() {
 
   if ! isInstalled "lighttpd" || ! isInstalled "php"; then
   
-    read -p "是否安装 Lighttpd 和 PHP ？(y/n/q) " httpd
+    read -p "是否安装 Lighttpd 和 PHP 7.4 ？(y/n/q) " httpd
     # if isInstalled "caddy" "version"; then
     #  read -p "Caddy 已经安装，如果需要安装 Lighttpd，Lighttpd 的端口将被改成 1080，是否继续安装？(y/n) " httpd1080
     #  if [[ "$httpd1080" == "y" || "$httpd1080" == "Y" ]]; then
@@ -391,7 +391,7 @@ aptlighttpd() {
       fi
 
       if ! isInstalled "php"; then
-        apt install php-cgi -y
+        apt install php7.4 php7.4-cli php7.4-common php7.4-fpm php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath -y
       fi
     
       # Enable PHP CGI module
@@ -444,7 +444,7 @@ aptcaddy() {
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
       apt update
       apt install caddy -y
-      apt install php php-fpm php-mysqli php-gd php-xml -y
+      apt install php7.4 php7.4-cli php7.4-common php7.4-fpm php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath -y
       systemctl enable caddy
       systemctl restart caddy
     
@@ -702,6 +702,8 @@ clear
     set_sep
     aptcaddyorlighttp
     set_sep
+    aptphp
+    set_sep
     aptcertbot
     
     echo "*********************************************************************************"
@@ -736,7 +738,7 @@ clear
         echo "10 - 安装 Adminer"
         echo "11 - 安装 Lighttpd 和 PHP"
         echo "12 - 安装 Caddy 和 PHP"
-        echo "13 - 安装 PHP 8.2"
+        echo "13 - 安装 PHP 7.4/8.2"
         echo "14 - 安装 Caddy"
         echo "15 - 安装 CertBot"
         echo "99 - 顺序运行全部"
