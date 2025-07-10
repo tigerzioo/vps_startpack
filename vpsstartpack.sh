@@ -463,10 +463,27 @@ aptphp() {
   echo "*                          *"
   echo "****************************"
   if ! isInstalled "php"; then
-    read -p "是否安装 php ？(y/n/q) " php
+    read -p "是否安装 PHP ？(y/n/q) " php
     if [[ "$php" == "y" || "$php" == "Y" ]]; then
-      apt update
-      apt install php8.2 php8.2-cli php8.2-common php8.2-fpm php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath -y
+      PS3="请选择 PHP 的版本："
+      select ver in "php 7.4" "php 8.2"
+      do
+        if [[ "$REPLY" == 1 ]]; then
+          echo "++++++++++ 安装 php 7.4 ...................."
+          apt update
+          apt install php7.4 php7.4-cli php7.4-common php7.4-fpm php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath -y
+          php -v
+          break
+        elif [[ "$REPLY" == 2 ]]; then
+          echo "++++++++++ 安装 php 8.2 ...................."
+          apt update
+          apt install php8.2 php8.2-cli php8.2-common php8.2-fpm php8.2-mysql php8.2-zip php8.2-gd php8.2-mbstring php8.2-curl php8.2-xml php8.2-bcmath -y
+          php -v
+          break
+        else
+          echo "++++++++++ 跳过 PHP 安装 ...................."
+        fi
+      done
     
     elif [[ "$php" == "q" || "$php" == "Q" ]]; then
       exit
