@@ -468,7 +468,9 @@ aptphp() {
   echo "*                          *"
   echo "****************************"
   if isInstalled "php"; then
-    echo "已安装的 PHP 版本******"
+    echo "******已安装的 PHP 版本******"
+    update-alternatives --list php
+    echo "****************************"
   fi
     read -p "是否安装 PHP ？(y/n/q) " php
     if [[ "$php" == "y" || "$php" == "Y" ]]; then
