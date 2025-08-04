@@ -467,7 +467,9 @@ aptphp() {
   echo "*******安装 PHP******"
   echo "*                          *"
   echo "****************************"
-  if ! isInstalled "php"; then
+  if isInstalled "php"; then
+    echo "已安装的 PHP 版本******"
+  fi
     read -p "是否安装 PHP ？(y/n/q) " php
     if [[ "$php" == "y" || "$php" == "Y" ]]; then
       PS3="请选择 PHP 的版本："
@@ -501,7 +503,6 @@ aptphp() {
     else
       echo "++++++++++ 跳过 php 安装 ...................."
     fi
-  fi
 }
 
 aptcaddyonly() {
