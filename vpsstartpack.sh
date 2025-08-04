@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+else
+    echo "Cannot detect OS - /etc/os-release not found."
+    exit 1
+fi
+
 set_sep() {
 read -n 1 -s -r -p "按任意键继续..."
 echo "++++++++++++++++++++++++++++"
@@ -466,6 +473,12 @@ aptphp() {
       PS3="请选择 PHP 的版本："
       select ver in "php 7.4" "php 8.2"
       do
+        if [ "$ID" = "ubuntu" ]; then
+          apt update && sudo apt upgrade -y
+          apt install software-properties-common -y
+          add-apt-repository ppa:ondrej/php
+          apt update
+        fi
         if [[ "$REPLY" == 1 ]]; then
           echo "++++++++++ 安装 php 7.4 ...................."
           apt update
