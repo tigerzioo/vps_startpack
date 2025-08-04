@@ -390,10 +390,8 @@ aptlighttpd() {
         apt install lighttpd -y
       fi
 
-      if ! isInstalled "php"; then
-        apt install php7.4 php7.4-cli php7.4-common php7.4-fpm php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath -y
-      fi
-    
+      aptphp
+      
       # Enable PHP CGI module
       echo "" >> /etc/lighttpd/lighttpd.conf
       echo "# Enable PHP CGI module" >> /etc/lighttpd/lighttpd.conf
@@ -444,9 +442,9 @@ aptcaddy() {
       curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
       apt update
       apt install caddy -y
-      apt install php7.4 php7.4-cli php7.4-common php7.4-fpm php7.4-mysql php7.4-zip php7.4-gd php7.4-mbstring php7.4-curl php7.4-xml php7.4-bcmath -y
       systemctl enable caddy
       systemctl restart caddy
+      aptphp
     
     elif [[ "$caddy" == "q" || "$caddy" == "Q" ]]; then
       exit
