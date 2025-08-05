@@ -355,6 +355,44 @@ aptmariadb() {
   fi
 }
 
+aptmysql() {
+  echo "****************************"
+  echo "*                          *"
+  echo "******安装 MySQL 数据库*****"
+  echo "*                          *"
+  echo "****************************"
+  
+  if ! isInstalled "mysql" "--version"; then
+    read -p "是否安装 MySQL？(y/n/q) " mysql
+    if [[ "$mysql" == "y" || "$mysql" == "Y" ]]; then
+      PS3="请选择 MySQL 的版本："
+      select ver in "系统自带版本"
+      do
+        if [[ "$REPLY" == 1 ]]; then
+          echo "++++++++++ 安装 MySQL 系统自带版本 ...................."
+          apt install mysql-server -y
+          mysql_secure_installation
+          mysql --version
+          break
+        elif [[ "$REPLY" == 2 ]]; then
+          echo "++++++++++ 安装 MySQL 8.0 ...................."
+          apt install mysql-server -y
+          mysql_secure_installation
+          echo "++++++++++ MySQL 安装完成 ...................."
+          mysql --version
+          break
+        else
+          echo "++++++++++ 跳过 MySQL 安装 ...................."
+        fi
+      done
+    elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
+      exit
+    else
+      echo "++++++++++ 跳过 MySQL 安装...................."
+    fi
+  fi
+}
+
 adddockeradminer() {
   if docker ps -a --format '{{.Names}}' | grep -q '^adminer$'; then
     echo "++++++++++ Adminer 已安装 ...................."
@@ -655,6 +693,10 @@ aptmariadb_run() {
   aptmariadb
   go_menu
 }
+aptmysql_run() {
+  aptmysql
+  go_menu
+}
 adddockeradminer_run() {
   adddockeradminer
   go_menu
@@ -749,12 +791,13 @@ clear
         echo "7 - 创建 非root 用户"
         echo "8 - 创建 Docker 网络"
         echo "9 - 安装 MariaDB 数据库"
-        echo "10 - 安装 Adminer"
-        echo "11 - 安装 Lighttpd 和 PHP"
-        echo "12 - 安装 Caddy 和 PHP"
-        echo "13 - 安装 PHP 7.4/8.2"
-        echo "14 - 安装 Caddy"
-        echo "15 - 安装 CertBot"
+        echo "10 - 安装 MySQL 数据库"
+        echo "11 - 安装 Adminer"
+        echo "12 - 安装 Lighttpd 和 PHP"
+        echo "13 - 安装 Caddy 和 PHP"
+        echo "14 - 安装 PHP 7.4/8.2"
+        echo "15 - 安装 Caddy"
+        echo "16 - 安装 CertBot"
         echo "99 - 顺序运行全部"
         echo "0 - 退出"
         echo -n "请选择: "
@@ -769,12 +812,13 @@ clear
             7) addnonrootusr_run ;;
             8) adddockernet_run ;;
             9) aptmariadb_run ;;
-            10) adddockeradminer_run ;;
-            11) aptlighttpd_run ;;
-            12) aptcaddy_run ;;
-            13) aptphp_run ;;
-            14) aptcaddyonly_run ;;
-            15) aptcertbot_run ;;
+            10) aptmysql_run ;;
+            11) adddockeradminer_run ;;
+            12) aptlighttpd_run ;;
+            13) aptcaddy_run ;;
+            14) aptphp_run ;;
+            15) aptcaddyonly_run ;;
+            16) aptcertbot_run ;;
             99) order_run ;;
             0) echo "Goodbye!"; exit 0 ;;
             *) echo "Invalid selection"; press_enter ;;
