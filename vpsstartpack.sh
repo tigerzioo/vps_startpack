@@ -734,6 +734,7 @@ clear
   echo "*                                                                               *"
   echo "*************************开始运行VPS初始设置一键脚本*****************************"
   echo "*            https://github.com/tigerzioo/vps_startpack                         *"
+  echo "* bash <(curl -s https://raw.githubusercontent.com/tigerzioo/vps_startpack/main/vpsstartpack.sh) *"
   echo "*            y：确认安装配置；n：跳过此项安装配置；q：退出脚本                      *"
   echo "*********************************************************************************"
     updatesys
