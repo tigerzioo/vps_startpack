@@ -755,9 +755,11 @@ clear
     set_sep
     aptmariadb
     set_sep
+    aptmysql
+    set_sep
     adddockeradminer
     set_sep
-    aptcaddyorlighttp
+    aptcaddyonly
     set_sep
     aptphp
     set_sep
