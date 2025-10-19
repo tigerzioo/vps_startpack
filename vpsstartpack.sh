@@ -366,7 +366,7 @@ aptmysql() {
     read -p "是否安装 MySQL？(y/n/q) " mysql
     if [[ "$mysql" == "y" || "$mysql" == "Y" ]]; then
       PS3="请选择 MySQL 的版本："
-      select ver in "系统自带版本"
+      select ver in "系统自带版本" "MySQL 8.0"
       do
         if [[ "$REPLY" == 1 ]]; then
           echo "++++++++++ 安装 MySQL 系统自带版本 ...................."
