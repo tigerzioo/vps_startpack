@@ -381,7 +381,7 @@ aptmysql() {
           sudo dpkg -i mysql-apt-config_0.8.33-1_all.deb
           sudo apt update
           apt install mysql-server -y
-          mysql_secure_installation
+          # mysql_secure_installation
           echo "++++++++++ MySQL 安装完成 ...................."
           mysql --version
           break
