@@ -376,6 +376,10 @@ aptmysql() {
           break
         elif [[ "$REPLY" == 2 ]]; then
           echo "++++++++++ 安装 MySQL 8.0 ...................."
+          sudo apt update
+          wget https://dev.mysql.com/get/mysql-apt-config_0.8.33-1_all.deb
+          sudo dpkg -i mysql-apt-config_0.8.33-1_all.deb
+          sudo apt update
           apt install mysql-server -y
           mysql_secure_installation
           echo "++++++++++ MySQL 安装完成 ...................."
