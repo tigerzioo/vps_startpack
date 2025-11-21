@@ -388,7 +388,7 @@ aptmysql() {
           # mysql_secure_installation
           echo "++++++++++ MySQL 安装完成 ...................."
           mysql --version
-          break
+          # break
        # else
        #   echo "++++++++++ 跳过 MySQL 安装 ...................."
        # fi
