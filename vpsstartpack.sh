@@ -376,10 +376,13 @@ aptmysql() {
       #    break
       #  elif [[ "$REPLY" == 2 ]]; then
           echo "++++++++++ 安装 MySQL 8.0 ...................."
-          sudo apt update
-          sudo apt install wget lsb-release gnupg -y
+          apt update
+          apt install sudo wget lsb-release gnupg -y
           wget https://dev.mysql.com/get/mysql-apt-config_0.8.33-1_all.deb
           sudo dpkg -i mysql-apt-config_0.8.33-1_all.deb
+          curl -fsSL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xB7B3B788A8D3785C" -o /tmp/RPM-GPG-KEY-mysql-2023
+          sudo gpg --dearmor < /tmp/RPM-GPG-KEY-mysql-2023 | sudo tee /usr/share/keyrings/mysql-apt-config.gpg >/dev/null
+          rm /tmp/RPM-GPG-KEY-mysql-2023  
           sudo apt update
           apt install mysql-server -y
           # mysql_secure_installation
@@ -798,8 +801,8 @@ clear
         echo "6 - 更改主机名"
         echo "7 - 创建 非root 用户"
         echo "8 - 创建 Docker 网络"
-        echo "9 - 安装 MariaDB 数据库"
-        echo "10 - 安装 MySQL 数据库"
+        echo "9 - 安装 MariaDB 11.4 数据库"
+        echo "10 - 安装 MySQL 8.0 数据库"
         echo "11 - 安装 Adminer"
         echo "12 - 安装 Lighttpd 和 PHP"
         echo "13 - 安装 Caddy 和 PHP"
