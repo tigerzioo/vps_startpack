@@ -365,18 +365,19 @@ aptmysql() {
   if ! isInstalled "mysql" "--version"; then
     read -p "是否安装 MySQL？(y/n/q) " mysql
     if [[ "$mysql" == "y" || "$mysql" == "Y" ]]; then
-      PS3="请选择 MySQL 的版本："
-      select ver in "系统自带版本" "MySQL 8.0"
-      do
-        if [[ "$REPLY" == 1 ]]; then
-          echo "++++++++++ 安装 MySQL 系统自带版本 ...................."
-          apt install mysql-server -y
-          mysql_secure_installation
-          mysql --version
-          break
-        elif [[ "$REPLY" == 2 ]]; then
+      # PS3="请选择 MySQL 的版本："
+      # select ver in "系统自带版本" "MySQL 8.0"
+      # do
+      #  if [[ "$REPLY" == 1 ]]; then
+      #    echo "++++++++++ 安装 MySQL 系统自带版本 ...................."
+      #    apt install mysql-server -y
+      #    mysql_secure_installation
+      #    mysql --version
+      #    break
+      #  elif [[ "$REPLY" == 2 ]]; then
           echo "++++++++++ 安装 MySQL 8.0 ...................."
           sudo apt update
+          sudo apt install wget -y
           wget https://dev.mysql.com/get/mysql-apt-config_0.8.33-1_all.deb
           sudo dpkg -i mysql-apt-config_0.8.33-1_all.deb
           sudo apt update
@@ -385,10 +386,10 @@ aptmysql() {
           echo "++++++++++ MySQL 安装完成 ...................."
           mysql --version
           break
-        else
-          echo "++++++++++ 跳过 MySQL 安装 ...................."
-        fi
-      done
+       # else
+       #   echo "++++++++++ 跳过 MySQL 安装 ...................."
+       # fi
+      # done
     elif [[ "$maria" == "q" || "$maria" == "Q" ]]; then
       exit
     else
